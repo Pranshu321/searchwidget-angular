@@ -6,7 +6,7 @@ import { CardStyle } from '../../models/interfaces';
   templateUrl: './cards.component.html',
   styleUrls: ['./cards.component.css'],
 })
-export class FilterComponent implements OnInit {
+export class CardsComponent implements OnInit {
   @Input() name: string = '';
   @Input() type: string = '';
   @Input() tags: Array<string> = [''];

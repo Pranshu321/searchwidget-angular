@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { FilteringComponent } from './filtering.component';
-import { FiltersComponentComponent } from './components/filters-component/filters-component.component';
-import { CardsComponentComponent } from './components/cards-component/cards-component.component';
+import { FiltersComponent } from './components/filters-component/filters.component';
+import { CardsComponent } from './components/cards-component/cards.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { WrapperComponent } from './components/wrapper/wrapper.component';
@@ -16,8 +16,8 @@ import { WrapperComponent } from './components/wrapper/wrapper.component';
   imports: [BrowserModule, CommonModule],
   exports: [
     FilteringComponent,
-    FiltersComponentComponent,
-    CardsComponentComponent,
+    FiltersComponent,
+    CardsComponent,
     WrapperComponent,
   ],
 })
