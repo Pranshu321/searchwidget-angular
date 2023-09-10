@@ -1,8 +1,8 @@
 <ng-container>
-  <div [style]="Styles.container">
+  <div [style]="styles.container">
     <div>
       <h4
-        [style]="Styles.OptionNameStyle"
+        [style]="styles.OptionNameStyle"
         style="
           color: rgb(0, 0, 0);
           margin-bottom: 5px;
@@ -13,7 +13,7 @@
         {{ this.Name.toUpperCase() }}
       </h4>
       <div
-        [style]="Styles.select"
+        [style]="styles.select"
         *ngIf="isSelected(this.Name)"
         class="dsHhXj"
         (click)="OptionsShow(this.Name)"
@@ -27,7 +27,7 @@
       >
         <div *ngFor="let term of this.AllFiltersArray">
           <div
-            [style]="Styles.select"
+            [style]="styles.select"
             style="display: flex; column-gap: 4px; flex-wrap: nowrap"
             *ngIf="term.name.toLowerCase() === this.Name.toLowerCase()"
           >
@@ -38,15 +38,15 @@
         </div>
       </div>
       <div *ngIf="getOptionStatus(this.Name)">
-        <div [style]="Styles.OptionDivStyle" class="fugxRD">
+        <div [style]="styles.OptionDivStyle" class="fugxRD">
           <ng-container *ngFor="let term of OptionValue">
             <div
-              [style]="Styles.OptionStyle"
+              [style]="styles.OptionStyle"
               (click)="addFilter(this.Name, term)"
               class="hHjkUf"
             >
               <div
-                [style]="Styles.OptionsItem"
+                [style]="styles.OptionsItem"
                 class="ghPFCr"
                 style="cursor: pointer"
               >

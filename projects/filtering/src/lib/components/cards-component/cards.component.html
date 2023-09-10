@@ -1,0 +1,41 @@
+<div>
+  <div [style]="styles.container" class="Container">
+    <div [style]="styles.headingDiv" class="TopContent">
+      <div>
+        <p [style]="styles.heading" class="Link" style="font-size: 18px">
+          {{ this.name }}
+        </p>
+        <p [style]="styles.type" class="Type">{{ this.type }}</p>
+      </div>
+      <div [style]="styles.imageDiv" class="ImageDiv">
+        <img
+          class="Image"
+          [style]="styles.image"
+          [src]="
+            this.image ||
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Placeholder_view_vector.svg/681px-Placeholder_view_vector.svg.png'
+          "
+        />
+      </div>
+    </div>
+    <div>
+      <div [style]="styles.tagsDiv" class="TagsDiv" *ngIf="tags.length">
+        <ng-container *ngFor="let tag of this.tags">
+          <div [style]="styles.tag" *ngIf="tag" class="Tags">{{ tag }}</div>
+        </ng-container>
+      </div>
+      <div [style]="styles.LowerDiv" class="LowerDiv">
+        <div [style]="styles.LowerItem" class="LowerItem" *ngIf="subject">
+          <dt [style]="styles.LowerDT" class="DescType">Subject</dt>
+          <dd [style]="styles.LowerDD" class="DetailDesc">{{ subject }}</dd>
+        </div>
+        <div [style]="styles.LowerItem" class="LowerItem" *ngIf="publisher">
+          <dt [style]="styles.LowerDT" class="DescType">Publisher</dt>
+          <dd [style]="styles.LowerDD" class="DetailDesc">
+            {{ this.publisher }}
+          </dd>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

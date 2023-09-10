@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { fetchData } from './Functions/api';
-import { StyleProps } from './Interfaces/interfaces';
+import { StyleProps, inputAPIProps } from './models/interfaces';
 
-export function Required(target: object, propertyKey: string) {
+export function required(target: object, propertyKey: string) {
   Object.defineProperty(target, propertyKey, {
     get() {
       throw new Error(`Attribute ${propertyKey} is required`);
@@ -24,19 +24,19 @@ export function Required(target: object, propertyKey: string) {
 })
 export class FilteringComponent implements OnInit {
   constructor() {}
-  @Input() @Required hostname: string = '';
-  @Input() @Required FrameworkFieldName: string = '';
-  @Input() AddtionalFilterConfig: Array<{
+  @Input() @required hostname: string = '';
+  @Input() @required frameworkFieldName: string = '';
+  @Input() addtionalFilterConfig: Array<{
     name: string;
     field: string;
     isEnabled: boolean;
   }> = [];
-  @Input() @Required FilterConfig: Array<{
+  @Input() @required filterConfig: Array<{
     name: string;
     field: string;
     isEnabled: boolean;
   }> = [];
-  @Input() @Required CardsFieldsObject: {
+  @Input() @required cardsFieldsObject: {
     name?: {
       field: string;
     };
@@ -56,38 +56,14 @@ export class FilteringComponent implements OnInit {
       field: string;
     };
   } = {};
-  @Input() @Required FormAPI: {
-    url: string;
-    headers?: object;
-    method: string;
-    body?: string;
-    cache?:
-      | 'default'
-      | 'no-store'
-      | 'reload'
-      | 'force-cache'
-      | 'only-if-cached'
-      | 'no-cache';
-  } = {
+  @Input() @required formAPI: inputAPIProps = {
     url: '',
     headers: {},
     method: '',
     body: '',
     cache: 'default',
   };
-  @Input() @Required SearchAPI: {
-    url: string;
-    headers?: object;
-    method: string;
-    body?: string;
-    cache?:
-      | 'default'
-      | 'no-store'
-      | 'reload'
-      | 'force-cache'
-      | 'only-if-cached'
-      | 'no-cache';
-  } = {
+  @Input() @required searchAPI: inputAPIProps = {
     url: '',
     headers: {},
     method: '',
@@ -95,89 +71,55 @@ export class FilteringComponent implements OnInit {
     cache: 'default',
   };
   
-  @Input() Styles:StyleProps = {};
+  @Input() styles:StyleProps = {};
 
-  @Input() @Required TermsAPI: {
-    url: string;
-    headers?: object;
-    method: string;
-    body?: string;
-    cache?:
-      | 'default'
-      | 'no-store'
-      | 'reload'
-      | 'force-cache'
-      | 'only-if-cached'
-      | 'no-cache';
-  } = {
+  @Input() @required termsAPI: inputAPIProps = {
     url: '',
     headers: {},
     method: '',
     body: '',
     cache: 'default',
   };
-  @Input() @Required GetDefaultChannel: {
-    url: string;
-    headers?: object;
-    method: string;
-    body?: string;
-    cache?:
-      | 'default'
-      | 'no-store'
-      | 'reload'
-      | 'force-cache'
-      | 'only-if-cached'
-      | 'no-cache';
-  } = {
+  @Input() @required getDefaultChannel: inputAPIProps = {
     url: '',
     headers: {},
     method: '',
     body: '',
     cache: 'default',
   };
-  @Input() @Required GetChannelAPI: {
-    headers?: object;
-    method: string;
-    body?: string;
-    cache?:
-      | 'default'
-      | 'no-store'
-      | 'reload'
-      | 'force-cache'
-      | 'only-if-cached'
-      | 'no-cache';
-  } = {
+  @Input() @required getChannelAPI: inputAPIProps = {
+    url:'',
     headers: {},
     method: '',
     body: '',
     cache: 'default',
   };
   Frameworks: any;
-  private DefaultChannelID: string = '';
+  private defaultChannelID: string = '';
   ngOnInit(): void {
     fetchData({
-      url: this.GetDefaultChannel.url,
-      method: this.GetDefaultChannel.method,
-      headers: this.GetDefaultChannel.headers,
-      cache: this.GetDefaultChannel.cache
-        ? this.GetDefaultChannel.cache
+      url: this.getDefaultChannel.url,
+      method: this.getDefaultChannel.method,
+      headers: this.getDefaultChannel.headers,
+      cache: this.getDefaultChannel.cache
+        ? this.getDefaultChannel.cache
         : 'default',
     })
       .then((res) => {
-        this.DefaultChannelID = res.result.response.value;
-        this.GetChannelFrameworks();
+        this.defaultChannelID = res.result.response.value;
+        this.getChannelFrameworks();
       })
       .catch((err) => {
         console.log(err.message);
       });
   }
-  GetChannelFrameworks() {
+  getChannelFrameworks() {
     fetchData({
-      url: `${this.hostname}/api/channel/v1/read/${this.DefaultChannelID}`,
-      method: this.GetChannelAPI.method,
-      headers: this.GetChannelAPI.headers,
-      cache: this.GetDefaultChannel.cache
-        ? this.GetDefaultChannel.cache
+      url: `${this.hostname}/api/channel/v1/read/${this.defaultChannelID}`,
+      method: this.getChannelAPI.method,
+      headers: this.getChannelAPI.headers,
+      cache: this.getDefaultChannel.cache
+        ? this.getDefaultChannel.cache
         : 'default',
     })
       .then((res) => {

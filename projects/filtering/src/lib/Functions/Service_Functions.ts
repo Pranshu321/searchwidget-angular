@@ -3,8 +3,8 @@ import {
   FilterDataExtractProps,
   RenderContentProps,
   UpdateConfigProps,
-} from '../Interfaces/Service_Function_Interfaces';
-export function UpdateConfig({
+} from '../models/Service_Function_Interfaces';
+export function updateConfig({
   apiData,
   addtionalFilterConfig,
   filterConfig,
@@ -50,7 +50,7 @@ function isEnabled(filterConfig: any, itemName: string) {
   return isEnable;
 }
 
-export function FilterDataExtract({
+export function filterDataExtract({
   content,
   filterConfig,
   TermsObject,
@@ -113,7 +113,7 @@ export function FilterDataExtract({
   };
 }
 
-export function RenderContentFunction({
+export function renderContentFunction({
   content,
   filtersSelected,
   filterConfig,
@@ -154,7 +154,7 @@ function isArray(item: any) {
   }
 }
 
-export function CardFieldsRender(item: any, CardFieldsObject: any) {
+export function cardFieldsRender(item: any, CardFieldsObject: any) {
   const FieldKeys = Object.keys(CardFieldsObject);
   let ObjectReturn: ServiceFunctionCardProps = {};
   let tagsArray: Array<string> = [];
@@ -176,16 +176,16 @@ export function CardFieldsRender(item: any, CardFieldsObject: any) {
   return ObjectReturn;
 }
 
-export function TermsFetch(
+export function termsFetch(
   data: any,
   // setMasterFieldsTerms: Function,
-  FilterConfig?: any
+  filterConfig?: any
 ) {
   const Categories = data.result.framework.categories;
   const TermsObject: any = {};
   Categories.map((item: any) => {
     const name = item.name;
-    if (FilterConfig[0].data.PrimaryFields[name]?.isEnabled) {
+    if (filterConfig[0].data.PrimaryFields[name]?.isEnabled) {
       const associations = item.terms[0].associations
         ? item.terms[0].associations
         : item.terms;
@@ -207,7 +207,7 @@ export function TermsFetch(
   return [TermsObject];
 }
 
-export function MasterFieldContentChange(
+export function masterFieldContentChange(
   filtersArray: any,
   filterConfig: any,
   body: string
@@ -231,7 +231,7 @@ export function MasterFieldContentChange(
   return JSON.stringify(bodyJSON);
 }
 
-export function DependentTermsFetch(
+export function dependentTermsFetch(
   thing: any,
   filters: any,
   filterOptions: any
@@ -273,7 +273,7 @@ export function DependentTermsFetch(
   return filterOptions;
 }
 
-export function FrameworksOptionsRender(Frameworks: Array<any>) {
+export function frameworksOptionsRender(Frameworks: Array<any>) {
   let options: Array<string> = [];
   Frameworks?.map((item: any) => {
     options.push(item.name);
@@ -281,7 +281,7 @@ export function FrameworksOptionsRender(Frameworks: Array<any>) {
   return options;
 }
 
-export function GetFrameWorkID(Frameworks: Array<any>, Framework: string) {
+export function getFrameworkID(Frameworks: Array<any>, Framework: string) {
   let id: string = '';
   Frameworks?.map((item: any) => {
     if (item.name === Framework) {

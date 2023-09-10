@@ -7,16 +7,16 @@ import {
 } from '@angular/core';
 import { fetchData } from '../../Functions/api';
 import {
-  DependentTermsFetch,
-  FilterDataExtract,
-  FrameworksOptionsRender,
-  GetFrameWorkID,
-  MasterFieldContentChange,
-  RenderContentFunction,
-  TermsFetch,
-  UpdateConfig,
+  dependentTermsFetch,
+  filterDataExtract,
+  frameworksOptionsRender,
+  getFrameworkID,
+  masterFieldContentChange,
+  renderContentFunction,
+  termsFetch,
+  updateConfig,
 } from '../../Functions/Service_Functions';
-import { StyleProps } from '../../Interfaces/interfaces';
+import { StyleProps, inputAPIProps } from '../../models/interfaces';
 
 @Component({
   selector: 'app-wrapper',
@@ -25,78 +25,43 @@ import { StyleProps } from '../../Interfaces/interfaces';
 })
 export class WrapperComponent implements OnInit, OnChanges {
   content: Array<{ [key: string]: any }> = [];
-  @Input() FilterConfig: Array<any> = [];
-  @Input() AddtionalFilterConfig: Array<any> = [];
-  ApiSettedFilterConfig: Array<any> = [];
-  FilterOptionsData: Array<{ [key: string]: any }> = [];
+  @Input() filterConfig: Array<any> = [];
+  @Input() addtionalFilterConfig: Array<any> = [];
+  apiSettedFilterConfig: Array<any> = [];
+  filterOptionsData: Array<{ [key: string]: any }> = [];
   tags: Array<string> = [];
-  OriginalMasterKeys: Array<string> = [];
-  DependentTermsData: Array<object> = [];
-  MasterFields: Array<{ [key: string]: any }> = [];
-  MasterKeys: Array<string> = [];
-  CardDataObj: { [key: string]: any } = {};
-  CardsData: Array<object> = [];
-  FrameworksOptionArray: Array<any> = [];
-  FilterOptionNameArray: Array<string> = [];
-  @Input() FiltersArray: Array<any> = [];
-  @Input() Framework: string = '';
-  @Input() FrameworkFieldName: string = '';
+  originalmasterKeys: Array<string> = [];
+  dependentTermsData: Array<object> = [];
+  masterFields: Array<{ [key: string]: any }> = [];
+  masterKeys: Array<string> = [];
+  cardDataObj: { [key: string]: any } = {};
+  cardsData: Array<object> = [];
+  frameworksOptionArray: Array<any> = [];
+  filterOptionNameArray: Array<string> = [];
+  allOptions: any = [];
+  @Input() filtersArray: Array<any> = [];
+  @Input() framework: string = '';
+  @Input() frameworkFieldName: string = '';
   @Input() FrameworksArray: Array<any> = [];
   @Input() hostname: string = '';
-  @Input() Styles: StyleProps = {};
-  @Input() FormAPI: {
-    url: string;
-    headers?: object;
-    method: string;
-    body?: string;
-    cache?:
-      | 'default'
-      | 'no-store'
-      | 'reload'
-      | 'force-cache'
-      | 'only-if-cached'
-      | 'no-cache';
-  } = {
+  @Input() styles: StyleProps = {};
+  @Input() formAPI: inputAPIProps = {
     url: '',
     headers: {},
     method: '',
     body: '',
     cache: 'default',
   };
-  @Input() CardsFieldConfig: { [key: string]: any } = {};
-  @Input() SearchAPI: {
-    url: string;
-    headers?: object;
-    method: string;
-    body?: string;
-    cache?:
-      | 'default'
-      | 'no-store'
-      | 'reload'
-      | 'force-cache'
-      | 'only-if-cached'
-      | 'no-cache';
-  } = {
+  @Input() cardsFieldConfig: { [key: string]: any } = {};
+  @Input() searchAPI: inputAPIProps = {
     url: '',
     headers: {},
     method: '',
     body: '',
     cache: 'default',
   };
-  FilterBodySet: any = this.SearchAPI.body;
-  @Input() TermsAPI: {
-    url: string;
-    headers?: object;
-    method: string;
-    body?: string;
-    cache?:
-      | 'default'
-      | 'no-store'
-      | 'reload'
-      | 'force-cache'
-      | 'only-if-cached'
-      | 'no-cache';
-  } = {
+  filterBodySet: any = this.searchAPI.body;
+  @Input() termsAPI: inputAPIProps = {
     url: '',
     headers: {},
     method: '',
@@ -104,32 +69,32 @@ export class WrapperComponent implements OnInit, OnChanges {
     cache: 'default',
   };
 
-  FetchAndUpdateFilterConfig() {
+  fetchAndUpdateFilterConfig() {
     fetchData({
-      url: this.FormAPI.url,
-      cache: this.FormAPI.cache ? this.FormAPI.cache : 'default',
-      method: this.FormAPI.method,
+      url: this.formAPI.url,
+      cache: this.formAPI.cache ? this.formAPI.cache : 'default',
+      method: this.formAPI.method,
     })
       .then((res: any) => {
-        this.ApiSettedFilterConfig = UpdateConfig({
+        this.apiSettedFilterConfig = updateConfig({
           apiData: res,
-          filterConfig: this.FilterConfig,
-          addtionalFilterConfig: this.AddtionalFilterConfig,
+          filterConfig: this.filterConfig,
+          addtionalFilterConfig: this.addtionalFilterConfig,
         });
       })
       .catch((err: any) => {
         console.log(err);
       });
-    const FrameworkID =
-      this.Framework === ''
+    const frameworkID =
+      this.framework === ''
         ? 'ekstep_ncert_k-12'
-        : GetFrameWorkID(this.FrameworksArray, this.Framework);
+        : getFrameworkID(this.FrameworksArray, this.framework);
     fetchData({
-      url: `${this.hostname}/api/content/v1/search?orgdetails=orgName,email&framework=${FrameworkID}`,
-      cache: this.SearchAPI.cache ? this.SearchAPI.cache : 'default',
-      method: this.SearchAPI.method,
-      body: this.SearchAPI.body,
-      headers: this.SearchAPI.headers,
+      url: `${this.hostname}/api/content/v1/search?orgdetails=orgName,email&framework=${frameworkID}`,
+      cache: this.searchAPI.cache ? this.searchAPI.cache : 'default',
+      method: this.searchAPI.method,
+      body: this.searchAPI.body,
+      headers: this.searchAPI.headers,
     })
       .then((res) => {
         this.content = res.result.content;
@@ -138,52 +103,52 @@ export class WrapperComponent implements OnInit, OnChanges {
         console.log(err);
       });
     fetchData({
-      url: `${this.hostname}/api/framework/v1/read/${FrameworkID}?categories=board,gradeLevel,medium,class,subject`,
-      cache: this.TermsAPI.cache ? this.TermsAPI.cache : 'default',
-      method: this.TermsAPI.method,
-      headers: this.TermsAPI.headers,
+      url: `${this.hostname}/api/framework/v1/read/${frameworkID}?categories=board,gradeLevel,medium,class,subject`,
+      cache: this.termsAPI.cache ? this.termsAPI.cache : 'default',
+      method: this.termsAPI.method,
+      headers: this.termsAPI.headers,
     })
       .then((res) => {
-        this.MasterFields = TermsFetch(res, this.ApiSettedFilterConfig);
+        this.masterFields = termsFetch(res, this.apiSettedFilterConfig);
 
-        this.MasterKeys = Object.keys(this.MasterFields[0]);
+        this.masterKeys = Object.keys(this.masterFields[0]);
       })
       .catch((err) => {
         console.log(err);
       });
   }
 
-  Reset() {
-    this.FiltersArray = [];
-    this.AllFiltersArray = [];
-    this.FetchAndUpdateFilterConfig();
-    this.DependentFieldsRender();
-    this.FrameWorksFetch();
-    this.FiltersContentRender();
-    this.RenderContentAddtionalFilter();
-    this.FilterDataRender();
+  reset() {
+    this.filtersArray = [];
+    this.allFiltersArray = [];
+    this.fetchAndUpdateFilterConfig();
+    this.dependentFieldsRender();
+    this.frameworksFetch();
+    this.filtersContentRender();
+    this.renderContentAddtionalFilter();
+    this.filterDataRender();
   }
 
-  DependentFieldsRender() {
-    const FrameworkID =
-      this.Framework === ''
+  dependentFieldsRender() {
+    const frameworkID =
+      this.framework === ''
         ? 'ekstep_ncert_k-12'
-        : GetFrameWorkID(this.FrameworksArray, this.Framework);
+        : getFrameworkID(this.FrameworksArray, this.framework);
     fetchData({
-      url: `${this.hostname}/api/framework/v1/read/${FrameworkID}?categories=board,gradeLevel,medium,class,subject`,
-      cache: this.TermsAPI.cache ? this.TermsAPI.cache : 'default',
-      method: this.TermsAPI.method,
-      headers: this.TermsAPI.headers,
+      url: `${this.hostname}/api/framework/v1/read/${frameworkID}?categories=board,gradeLevel,medium,class,subject`,
+      cache: this.termsAPI.cache ? this.termsAPI.cache : 'default',
+      method: this.termsAPI.method,
+      headers: this.termsAPI.headers,
     })
       .then((res) => {
-        const data = DependentTermsFetch(
+        const data = dependentTermsFetch(
           res,
-          this.FiltersArray,
-          this.MasterFields
+          this.filtersArray,
+          this.masterFields
         );
-        this.DependentTermsData = data;
+        this.dependentTermsData = data;
         let flag = true;
-        this.FiltersArray?.map((item: any) => {
+        this.filtersArray?.map((item: any) => {
           if (item?.value.length !== 0) {
             flag = false;
           }
@@ -191,27 +156,27 @@ export class WrapperComponent implements OnInit, OnChanges {
 
         if (flag) {
           fetchData({
-            url: `${this.hostname}/api/framework/v1/read/${FrameworkID}?categories=board,gradeLevel,medium,class,subject`,
-            cache: this.TermsAPI.cache ? this.TermsAPI.cache : 'default',
-            method: this.TermsAPI.method,
-            headers: this.TermsAPI.headers,
+            url: `${this.hostname}/api/framework/v1/read/${frameworkID}?categories=board,gradeLevel,medium,class,subject`,
+            cache: this.termsAPI.cache ? this.termsAPI.cache : 'default',
+            method: this.termsAPI.method,
+            headers: this.termsAPI.headers,
           })
             .then((res) => {
-              this.MasterFields = TermsFetch(res, this.ApiSettedFilterConfig);
+              this.masterFields = termsFetch(res, this.apiSettedFilterConfig);
 
               if (
-                typeof this.MasterFields[0] !== 'undefined' &&
-                typeof this.MasterFields[0] !== null
+                typeof this.masterFields[0] !== 'undefined' &&
+                typeof this.masterFields[0] !== null
               ) {
-                this.MasterKeys = Object.keys(this.MasterFields[0]);
+                this.masterKeys = Object.keys(this.masterFields[0]);
               }
             })
             .catch((err) => {
               console.log(err);
             });
         } else {
-          this.MasterFields = this.DependentTermsData;
-          console.log('Terms', this.MasterFields);
+          this.masterFields = this.dependentTermsData;
+          console.log('Terms', this.masterFields);
         }
       })
       .catch((err) => {
@@ -219,12 +184,12 @@ export class WrapperComponent implements OnInit, OnChanges {
       });
   }
 
-  FrameWorksFetch() {
-    const FrameWorksOption = FrameworksOptionsRender(this.FrameworksArray);
-    this.FrameworksOptionArray = FrameWorksOption;
+  frameworksFetch() {
+    const FrameWorksOption = frameworksOptionsRender(this.FrameworksArray);
+    this.frameworksOptionArray = FrameWorksOption;
   }
 
-  FilterShow() {
+  filterShow() {
     const element = document.getElementById('sidebar');
     if (element?.classList.contains('show')) {
       element.classList.remove('show');
@@ -235,40 +200,40 @@ export class WrapperComponent implements OnInit, OnChanges {
     }
   }
 
-  MasterBodyContentChange() {
-    this.FilterBodySet = MasterFieldContentChange(
-      this.AllFiltersArray !== undefined && this.AllFiltersArray.length !== 0
-        ? this.AllFiltersArray
-        : this.FiltersArray,
-      this.FilterConfig,
-      this.SearchAPI.body ? this.SearchAPI.body : ''
+  masterBodyContentChange() {
+    this.filterBodySet = masterFieldContentChange(
+      this.allFiltersArray !== undefined && this.allFiltersArray.length !== 0
+        ? this.allFiltersArray
+        : this.filtersArray,
+      this.filterConfig,
+      this.searchAPI.body ? this.searchAPI.body : ''
     );
   }
 
-  FiltersContentRender() {
-    this.MasterBodyContentChange();
-    const FrameworkID =
-      this.Framework === ''
+  filtersContentRender() {
+    this.masterBodyContentChange();
+    const frameworkID =
+      this.framework === ''
         ? 'ekstep_ncert_k-12'
-        : GetFrameWorkID(this.FrameworksArray, this.Framework);
+        : getFrameworkID(this.FrameworksArray, this.framework);
     fetchData({
       url: `${
         this.hostname
       }/api/content/v1/search?orgdetails=orgName,email&framework=${
-        this.Framework === '' ? 'ekstep_ncert_k-12' : FrameworkID
+        this.framework === '' ? 'ekstep_ncert_k-12' : frameworkID
       }`,
       cache: 'default',
-      method: this.SearchAPI.method,
-      body: this.FilterBodySet,
-      headers: this.SearchAPI.headers,
+      method: this.searchAPI.method,
+      body: this.filterBodySet,
+      headers: this.searchAPI.headers,
     })
       .then((res) => {
         if (res.result.content !== undefined) {
           this.content = res.result.content;
-          this.FilterDataRender();
+          this.filterDataRender();
         } else if (res.result.QuestionSet !== undefined) {
           this.content = res.result.QuestionSet;
-          this.FilterDataRender();
+          this.filterDataRender();
         } else {
           this.content = this.content;
         }
@@ -278,35 +243,35 @@ export class WrapperComponent implements OnInit, OnChanges {
       });
   }
 
-  FilterDataRender() {
-    const ReturnData = FilterDataExtract({
+  filterDataRender() {
+    const ReturnData = filterDataExtract({
       content: this.content,
-      filterConfig: this.ApiSettedFilterConfig,
-      TermsObject: this.AddtionalFilterConfig,
+      filterConfig: this.apiSettedFilterConfig,
+      TermsObject: this.addtionalFilterConfig,
     });
-    this.FilterOptionsData = ReturnData.OptionValueArray;
+    this.filterOptionsData = ReturnData.OptionValueArray;
 
-    this.FilterOptionNameArray = ReturnData.OptionNameArray;
-    this.AllOptions.map((item: any) => {
-      if (this.FilterOptionNameArray.includes(item.name)) {
-        const idx = this.FilterOptionNameArray.indexOf(item.name);
-        item.terms = this.FilterOptionsData[idx].terms;
+    this.filterOptionNameArray = ReturnData.OptionNameArray;
+    this.allOptions.map((item: any) => {
+      if (this.filterOptionNameArray.includes(item.name)) {
+        const idx = this.filterOptionNameArray.indexOf(item.name);
+        item.terms = this.filterOptionsData[idx].terms;
       }
     });
     return ReturnData;
   }
   AddtionalContent: any;
-  RenderContentAddtionalFilter() {
-    this.AddtionalContent = RenderContentFunction({
+  renderContentAddtionalFilter() {
+    this.AddtionalContent = renderContentFunction({
       content: this.content,
-      filtersSelected: this.FiltersArray,
-      filterConfig: this.ApiSettedFilterConfig,
+      filtersSelected: this.filtersArray,
+      filterConfig: this.apiSettedFilterConfig,
     });
   }
 
-  AdditionalOptionValueReturn(Key: string) {
+  additionalOptionValueReturn(Key: string) {
     let valueArray: Array<string> = [];
-    this.FilterOptionsData.map((item: any) => {
+    this.filterOptionsData.map((item: any) => {
       if (Key.toLowerCase() === item.name.toLowerCase()) {
         valueArray = item.value;
       }
@@ -314,10 +279,10 @@ export class WrapperComponent implements OnInit, OnChanges {
     return valueArray;
   }
 
-  CardsFieldCheck(field: string, item: any) {
-    if (field === 'tags' && this.CardsFieldConfig.hasOwnProperty(field)) {
+  cardsFieldCheck(field: string, item: any) {
+    if (field === 'tags' && this.cardsFieldConfig.hasOwnProperty(field)) {
       const arr: Array<string> = [];
-      const tagsArray = this.CardsFieldConfig[field].TagsFieldArray;
+      const tagsArray = this.cardsFieldConfig[field].TagsFieldArray;
       tagsArray.map((key: any) => {
         arr.push(item[key]);
       });
@@ -326,41 +291,40 @@ export class WrapperComponent implements OnInit, OnChanges {
     if (field === 'tags') {
       return [];
     }
-    if (this.CardsFieldConfig.hasOwnProperty(field)) {
-      const itemKey = this.CardsFieldConfig[field].field;
+    if (this.cardsFieldConfig.hasOwnProperty(field)) {
+      const itemKey = this.cardsFieldConfig[field].field;
       return item[itemKey];
     }
     return '';
   }
 
   constructor() {}
-  AllOptions: any = [];
   ngOnInit(): void {
-    this.FetchAndUpdateFilterConfig();
-    this.RenderContentAddtionalFilter();
-    this.FrameWorksFetch();
+    this.fetchAndUpdateFilterConfig();
+    this.renderContentAddtionalFilter();
+    this.frameworksFetch();
   }
   ngOnChanges(changes: SimpleChanges): void {
-    this.FetchAndUpdateFilterConfig();
-    this.DependentFieldsRender();
-    this.FrameWorksFetch();
-    this.FiltersContentRender();
+    this.fetchAndUpdateFilterConfig();
+    this.dependentFieldsRender();
+    this.frameworksFetch();
+    this.filtersContentRender();
 
-    let MasterFieldsArray: Array<any> = [];
-    this.MasterKeys.map((item) => {
-      MasterFieldsArray.push(this.MasterFields[0][item]);
+    let masterFieldsArray: Array<any> = [];
+    this.masterKeys.map((item) => {
+      masterFieldsArray.push(this.masterFields[0][item]);
     });
-    this.AllOptions = [
-      { name: this.FrameworkFieldName, terms: this.FrameworksOptionArray },
-      ...MasterFieldsArray,
-      ...this.FilterOptionsData,
+    this.allOptions = [
+      { name: this.frameworkFieldName, terms: this.frameworksOptionArray },
+      ...masterFieldsArray,
+      ...this.filterOptionsData,
     ];
-    this.RenderContentAddtionalFilter();
+    this.renderContentAddtionalFilter();
   }
 
-  IsAddtionalFilter(Name: string) {
+  isAddtionalFilter(Name: string) {
     let flag = false;
-    this.AddtionalFilterConfig.map((item) => {
+    this.addtionalFilterConfig.map((item) => {
       if (item.name.toLowerCase() === Name.toLowerCase()) {
         flag = true;
       }
@@ -368,32 +332,32 @@ export class WrapperComponent implements OnInit, OnChanges {
     return flag;
   }
 
-  AllFiltersArray: any = [];
+  allFiltersArray: any = [];
 
-  LOG(a: any) {
+  logCards(a: any) {
     const ele = a[0];
-    if (ele.name === this.FrameworkFieldName) {
-      this.Framework = ele.value.length === 0 ? 'CBSE' : ele.value[0];
+    if (ele.name === this.frameworkFieldName) {
+      this.framework = ele.value.length === 0 ? 'CBSE' : ele.value[0];
     }
     let flag = true;
-    this.AllFiltersArray.map((item: any) => {
+    this.allFiltersArray.map((item: any) => {
       if (item.name === ele.name) {
         flag = false;
       }
     });
     if (flag) {
-      this.AllFiltersArray.push(ele);
+      this.allFiltersArray.push(ele);
     } else {
-      this.AllFiltersArray.map((item: any) => {
-        if (ele.name === this.FrameworkFieldName) {
-          if (item.name === this.FrameworkFieldName) {
+      this.allFiltersArray.map((item: any) => {
+        if (ele.name === this.frameworkFieldName) {
+          if (item.name === this.frameworkFieldName) {
             if (item.value[0] === ele.value[0]) {
               item.value = [];
             } else {
               item.value = ele.value;
             }
           }
-        } else if (this.IsAddtionalFilter(ele.name)) {
+        } else if (this.isAddtionalFilter(ele.name)) {
           const oldArr = item.value;
           if (oldArr.includes(ele.value[0])) {
             oldArr.splice(oldArr.indexOf(ele.value[0]), 1);
@@ -406,37 +370,22 @@ export class WrapperComponent implements OnInit, OnChanges {
         }
       });
     }
-    // if (this.FrameworksOptionArray.includes(ele.value[0]) && this.AllFiltersArray.length!==0) {
-    //   // console.log("Yes");
-    //   let oldArr = this.AllFiltersArray.filter((item: any) => {
-    //     return item.name.toLowerCase() !== ele.name.toLowerCase();
-    //   });
-    //   // console.log("old",oldArr);
-    //   oldArr.push({ name: ele.name, value: [ele.value] });
-    //   this.AllFiltersArray = oldArr;
-    // }
-    // if(this.AllFiltersArray.length!==0){
-    //   this.AllFiltersArray.map((item:any)=>{
-    //     if(item.name===this.FrameworkFieldName){
-    //     }
-    //   })
-    // }
-    this.FiltersArray = this.AllFiltersArray;
+    this.filtersArray = this.allFiltersArray;
 
-    this.MasterBodyContentChange();
-    this.DependentFieldsRender();
-    this.FrameWorksFetch();
-    this.FiltersContentRender();
-    this.RenderContentAddtionalFilter();
+    this.masterBodyContentChange();
+    this.dependentFieldsRender();
+    this.frameworksFetch();
+    this.filtersContentRender();
+    this.renderContentAddtionalFilter();
 
-    let MasterFieldsArray: Array<any> = [];
-    this.MasterKeys.map((item) => {
-      MasterFieldsArray.push(this.MasterFields[0][item]);
+    let masterFieldsArray: Array<any> = [];
+    this.masterKeys.map((item) => {
+      masterFieldsArray.push(this.masterFields[0][item]);
     });
-    this.AllOptions = [
-      { name: this.FrameworkFieldName, terms: this.FrameworksOptionArray },
-      ...MasterFieldsArray,
-      ...this.FilterOptionsData,
+    this.allOptions = [
+      { name: this.frameworkFieldName, terms: this.frameworksOptionArray },
+      ...masterFieldsArray,
+      ...this.filterOptionsData,
     ];
   }
 }

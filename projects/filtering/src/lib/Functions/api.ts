@@ -1,4 +1,4 @@
-import { apiProps } from '../Interfaces/Service_Function_Interfaces';
+import { apiProps } from '../models/Service_Function_Interfaces';
 
 export const fetchData = async ({
   headers,

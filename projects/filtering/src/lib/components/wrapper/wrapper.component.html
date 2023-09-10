@@ -1,36 +1,36 @@
-<div [style]="Styles.WrapperStyle?.Container" class="mainDiv">
+<div [style]="styles.WrapperStyle?.Container" class="mainDiv">
   <button
-    [style]="Styles.WrapperStyle?.Button"
+    [style]="styles.WrapperStyle?.Button"
     class="button"
     (click)="FilterShow()"
   >
     Filter
   </button>
-  <div [style]="Styles.WrapperStyle?.Sidebar" id="sidebar" class="faKsuq">
+  <div [style]="styles.WrapperStyle?.Sidebar" id="sidebar" class="faKsuq">
     <button class="reset" (click)="Reset()">Reset</button>
     <div
-      [style]="Styles.WrapperStyle?.FiltersDiv"
+      [style]="styles.WrapperStyle?.FiltersDiv"
       class="sidebar"
       *ngIf="AllOptions.length !== 0"
     >
       <div
-        [style]="Styles.WrapperStyle?.Filter"
+        [style]="styles.WrapperStyle?.Filter"
         *ngFor="let Field of AllOptions"
       >
         <lib-filters-component
           [Name]="Field.name"
           [OptionValue]="Field.terms"
           (FiltersArrayEvent)="LOG($event)"
-          [AddtionalFilterConfig]="AddtionalFilterConfig"
-          [FilterConfig]="FilterConfig"
+          [addtionalFilterConfig]="addtionalFilterConfig"
+          [filterConfig]="filterConfig"
           [AllFiltersArray]="AllFiltersArray"
-          [Styles]="Styles.FilterStyle !== undefined ? Styles.FilterStyle : {}"
+          [styles]="styles.FilterStyle !== undefined ? styles.FilterStyle : {}"
         >
         </lib-filters-component>
       </div>
     </div>
   </div>
-  <div [style]="Styles.WrapperStyle?.ListDiv" class="listDiv">
+  <div [style]="styles.WrapperStyle?.ListDiv" class="listDiv">
     <ng-container *ngIf="AddtionalContent.length === 0">
       <div *ngFor="let item of content">
         <lib-cards-component
@@ -40,7 +40,7 @@
           [subject]="this.CardsFieldCheck('subject', item)"
           [tags]="this.CardsFieldCheck('tags', item)"
           [publisher]="this.CardsFieldCheck('publisher', item)"
-          [Styles]="Styles.CardStyle !== undefined ? Styles.CardStyle : {}"
+          [styles]="styles.CardStyle !== undefined ? styles.CardStyle : {}"
         >
         </lib-cards-component>
       </div>
@@ -54,7 +54,7 @@
           [subject]="this.CardsFieldCheck('subject', item)"
           [tags]="this.CardsFieldCheck('tags', item)"
           [publisher]="this.CardsFieldCheck('publisher', item)"
-          [Styles]="Styles.CardStyle !== undefined ? Styles.CardStyle : {}"
+          [styles]="styles.CardStyle !== undefined ? styles.CardStyle : {}"
         >
         </lib-cards-component>
       </div>

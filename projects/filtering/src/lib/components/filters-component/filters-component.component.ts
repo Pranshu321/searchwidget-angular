@@ -7,14 +7,14 @@ import {
   OnChanges,
   SimpleChanges,
 } from '@angular/core';
-import { FilterStyle, FiltersArraySelectedOptionObject } from '../../Interfaces/interfaces';
+import { FilterStyle, FiltersArraySelectedOptionObject } from '../../models/interfaces';
 
 @Component({
   selector: 'lib-filters-component',
-  templateUrl: './filters-component.component.html',
-  styleUrls: ['./filters-component.component.css'],
+  templateUrl: './filters.component.html',
+  styleUrls: ['./filters.component.css'],
 })
-export class FiltersComponentComponent implements OnInit, OnChanges {
+export class FiltersComponent implements OnInit, OnChanges {
   Show: string = '';
   @Input() Data: string = '';
   @Output() FiltersArrayEvent = new EventEmitter<
@@ -24,11 +24,11 @@ export class FiltersComponentComponent implements OnInit, OnChanges {
   FiltersArray: Array<FiltersArraySelectedOptionObject> = [];
   Selected: Array<FiltersArraySelectedOptionObject> = [];
   AddFilterNumber: Array<number> = [0];
-  @Input() Styles: FilterStyle = {};
+  @Input() styles: FilterStyle = {};
   @Input() Name: string = '';
   @Input() OptionValue: Array<string> = [];
-  @Input() FilterConfig: Array<any> = [];
-  @Input() AddtionalFilterConfig: Array<any> = [];
+  @Input() filterConfig: Array<any> = [];
+  @Input() addtionalFilterConfig: Array<any> = [];
   @Input() AllFiltersArray: Array<any> = [];
 
   OptionOb: Array<{ name: string; Options: boolean }> = [];
@@ -101,7 +101,7 @@ export class FiltersComponentComponent implements OnInit, OnChanges {
   Check: any = [];
   IsSingleSelect(OptionName: string) {
     let flag = false;
-    this.FilterConfig.map((item) => {
+    this.filterConfig.map((item) => {
       console.log(item);
       if (item.name.toLowerCase() === OptionName.toLowerCase()) {
         if (item.SelectType === 'single') {
@@ -145,16 +145,16 @@ export class FiltersComponentComponent implements OnInit, OnChanges {
 
   OptionShowHide() {
     let arr: Array<{ name: string; Options: boolean }> = [];
-    if (this.FilterConfig.length !== 0) {
-      this.FilterConfig.map((item) => {
+    if (this.filterConfig.length !== 0) {
+      this.filterConfig.map((item) => {
         arr.push({
           name: item.name,
           Options: false,
         });
       });
     }
-    if (this.AddtionalFilterConfig.length !== 0) {
-      this.AddtionalFilterConfig.map((item) => {
+    if (this.addtionalFilterConfig.length !== 0) {
+      this.addtionalFilterConfig.map((item) => {
         if (item.isEnabled)
           arr.push({
             name: item.name,
