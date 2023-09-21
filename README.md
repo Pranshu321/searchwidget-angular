@@ -3,6 +3,7 @@
 An Angular filtering widget is a user interface component built using the React library that facilitates the process of filtering and refining data or content displayed on a web page. This widget is particularly useful when dealing with sunbird data or lists of items and allows users to interactively narrow down the displayed information based on their preferences or criteria.
 
 - [NPM Package](https://www.npmjs.com/package/angular-sunbird-filtering)
+- [Project Details](Sunbird-Ed/SunbirdEd-portal#8690)
 - [Organization Repo](https://github.com/tekdi/searchwidget-angular)
 
 ## Installation
