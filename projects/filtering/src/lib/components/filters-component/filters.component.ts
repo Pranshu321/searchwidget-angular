@@ -7,7 +7,11 @@ import {
   OnChanges,
   SimpleChanges,
 } from '@angular/core';
-import { FilterStyle, FiltersArraySelectedOptionObject } from '../../models/interfaces';
+import {
+  FilterStyle,
+  FiltersArraySelectedOptionObject,
+} from '../../models/interfaces';
+import { FiltersService } from '../../services/filters.service';
 
 @Component({
   selector: 'lib-filters-component',
@@ -32,6 +36,9 @@ export class FiltersComponent implements OnInit, OnChanges {
   @Input() AllFiltersArray: Array<any> = [];
 
   OptionOb: Array<{ name: string; Options: boolean }> = [];
+  Check: any = [];
+
+  constructor(private filterService: FiltersService) {}
 
   getOptionStatus(a: string) {
     const idx = this.OptionOb.findIndex(
@@ -75,47 +82,37 @@ export class FiltersComponent implements OnInit, OnChanges {
     return flag;
   }
 
-  CheckIfOptionPresentNew(optionName: string) {
-    let flag = false;
-    this.FiltersArray?.map((item) => {
-      if (item.name.toLowerCase() === optionName.toLowerCase()) {
-        flag = true;
-      }
-    });
-    return flag;
+  OptionShowHide(filterConfig: any) {
+    let arr: Array<{ name: string; Options: boolean }> = [];
+    if (filterConfig.length !== 0) {
+      filterConfig.map((item: any) => {
+        arr.push({
+          name: item.name,
+          Options: false,
+        });
+      });
+    }
+    if (this.addtionalFilterConfig.length !== 0) {
+      this.addtionalFilterConfig.map((item: any) => {
+        if (item.isEnabled)
+          arr.push({
+            name: item.name,
+            Options: false,
+          });
+      });
+    }
+    this.OptionOb = arr;
   }
-
-  OptionNamePresent(optionName: string, itemarg: any) {
-    let flag = false;
-    this.FiltersArray?.map((item) => {
-      if (
-        item.name.toLowerCase() === optionName.toLowerCase() &&
-        item.name.toLowerCase() === itemarg.name.toLowerCase()
-      ) {
-        flag = true;
-      }
-    });
-    return flag;
-  }
-
-  Check: any = [];
-  IsSingleSelect(OptionName: string) {
-    let flag = false;
-    this.filterConfig.map((item) => {
-      console.log(item);
-      if (item.name.toLowerCase() === OptionName.toLowerCase()) {
-        if (item.SelectType === 'single') {
-          flag = true;
-        }
-      }
-    });
-    return flag;
-  }
-
   addFilter(OptionName: string, OptionValue: string) {
-    if (this.CheckIfOptionPresentNew(OptionName)) {
+    if (this.filterService.OptionNameisPresent(OptionName, this.FiltersArray)) {
       this.FiltersArray?.map((item) => {
-        if (this.OptionNamePresent(OptionName, item)) {
+        if (
+          this.filterService.itemPresentOptionName(
+            OptionName,
+            item,
+            this.FiltersArray
+          )
+        ) {
           if (item.value.includes(OptionValue)) {
             const newarr = item.value;
             const indexofOption = item.value.indexOf(OptionValue);
@@ -143,30 +140,8 @@ export class FiltersComponent implements OnInit, OnChanges {
     this.FiltersArrayEvent.emit(this.FiltersArray);
   }
 
-  OptionShowHide() {
-    let arr: Array<{ name: string; Options: boolean }> = [];
-    if (this.filterConfig.length !== 0) {
-      this.filterConfig.map((item) => {
-        arr.push({
-          name: item.name,
-          Options: false,
-        });
-      });
-    }
-    if (this.addtionalFilterConfig.length !== 0) {
-      this.addtionalFilterConfig.map((item) => {
-        if (item.isEnabled)
-          arr.push({
-            name: item.name,
-            Options: false,
-          });
-      });
-    }
-    this.OptionOb = arr;
-  }
-
   ngOnInit(): void {
-    this.OptionShowHide();
+    this.OptionShowHide(this.filterConfig);
   }
   ngOnChanges(changes: SimpleChanges): void {}
 }

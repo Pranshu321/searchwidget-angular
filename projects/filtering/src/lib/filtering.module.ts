@@ -9,8 +9,8 @@ import { WrapperComponent } from './components/wrapper/wrapper.component';
 @NgModule({
   declarations: [
     FilteringComponent,
-    FiltersComponentComponent,
-    CardsComponentComponent,
+    FiltersComponent,
+    CardsComponent,
     WrapperComponent,
   ],
   imports: [BrowserModule, CommonModule],

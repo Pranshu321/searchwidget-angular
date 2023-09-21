@@ -33,6 +33,11 @@ export interface StyleProps {
   };
 }
 
+export interface Configs {
+  filterConfig: Array<FilterConfigProps>;
+  addtionalFilterConfig?: Array<FilterConfigProps>;
+}
+
 export interface inputAPIProps {
   url: string;
   headers?: object;
@@ -45,6 +50,14 @@ export interface inputAPIProps {
     | 'force-cache'
     | 'only-if-cached'
     | 'no-cache';
+}
+
+export interface allInputApiProps {
+  formAPI: inputAPIProps;
+  searchAPI: inputAPIProps;
+  termsAPI: inputAPIProps;
+  getDefaultChannelAPI: inputAPIProps;
+  getChannelAPI: inputAPIProps;
 }
 
 export interface CardStyle {

@@ -1,6 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { fetchData } from './Functions/api';
-import { StyleProps, inputAPIProps } from './models/interfaces';
+import {
+  CardFieldsObject,
+  Configs,
+  StyleProps,
+  allInputApiProps,
+  inputAPIProps,
+} from './models/interfaces';
+import { ApiService } from './services/api.service';
 
 export function required(target: object, propertyKey: string) {
   Object.defineProperty(target, propertyKey, {
@@ -18,93 +24,49 @@ export function required(target: object, propertyKey: string) {
   });
 }
 
+const defaultAPISet: inputAPIProps = {
+  url: '',
+  headers: {},
+  method: '',
+  body: '',
+  cache: 'default',
+};
+
 @Component({
   selector: 'lib-filtering',
   templateUrl: './filtering.component.html',
 })
 export class FilteringComponent implements OnInit {
-  constructor() {}
+  constructor(private apiService: ApiService) {}
   @Input() @required hostname: string = '';
   @Input() @required frameworkFieldName: string = '';
-  @Input() addtionalFilterConfig: Array<{
-    name: string;
-    field: string;
-    isEnabled: boolean;
-  }> = [];
-  @Input() @required filterConfig: Array<{
-    name: string;
-    field: string;
-    isEnabled: boolean;
-  }> = [];
-  @Input() @required cardsFieldsObject: {
-    name?: {
-      field: string;
-    };
-    type?: {
-      field: string;
-    };
-    tags?: {
-      TagsFieldArray: Array<string>;
-    };
-    image?: {
-      field: string;
-    };
-    publisher?: {
-      field: string;
-    };
-    subject?: {
-      field: string;
-    };
-  } = {};
-  @Input() @required formAPI: inputAPIProps = {
-    url: '',
-    headers: {},
-    method: '',
-    body: '',
-    cache: 'default',
+  @Input() @required Configs: Configs = {
+    filterConfig: [],
+    addtionalFilterConfig: [],
   };
-  @Input() @required searchAPI: inputAPIProps = {
-    url: '',
-    headers: {},
-    method: '',
-    body: '',
-    cache: 'default',
+  @Input() @required cardsFieldsObject: CardFieldsObject = {};
+  @Input() @required API: allInputApiProps = {
+    formAPI: defaultAPISet,
+    searchAPI: defaultAPISet,
+    termsAPI: defaultAPISet,
+    getDefaultChannelAPI: defaultAPISet,
+    getChannelAPI: defaultAPISet,
   };
-  
-  @Input() styles:StyleProps = {};
 
-  @Input() @required termsAPI: inputAPIProps = {
-    url: '',
-    headers: {},
-    method: '',
-    body: '',
-    cache: 'default',
-  };
-  @Input() @required getDefaultChannel: inputAPIProps = {
-    url: '',
-    headers: {},
-    method: '',
-    body: '',
-    cache: 'default',
-  };
-  @Input() @required getChannelAPI: inputAPIProps = {
-    url:'',
-    headers: {},
-    method: '',
-    body: '',
-    cache: 'default',
-  };
+  @Input() styles: StyleProps = {};
+
   Frameworks: any;
   private defaultChannelID: string = '';
   ngOnInit(): void {
-    fetchData({
-      url: this.getDefaultChannel.url,
-      method: this.getDefaultChannel.method,
-      headers: this.getDefaultChannel.headers,
-      cache: this.getDefaultChannel.cache
-        ? this.getDefaultChannel.cache
-        : 'default',
-    })
+    this.apiService
+      .fetchData({
+        url: this.API.getDefaultChannelAPI.url,
+        method: this.API.getDefaultChannelAPI.method,
+        headers: this.API.getDefaultChannelAPI.headers,
+        cache: this.API.getDefaultChannelAPI.cache
+          ? this.API.getDefaultChannelAPI.cache
+          : 'default',
+      })
       .then((res) => {
         this.defaultChannelID = res.result.response.value;
         this.getChannelFrameworks();
@@ -114,14 +76,15 @@ export class FilteringComponent implements OnInit {
       });
   }
   getChannelFrameworks() {
-    fetchData({
-      url: `${this.hostname}/api/channel/v1/read/${this.defaultChannelID}`,
-      method: this.getChannelAPI.method,
-      headers: this.getChannelAPI.headers,
-      cache: this.getDefaultChannel.cache
-        ? this.getDefaultChannel.cache
-        : 'default',
-    })
+    this.apiService
+      .fetchData({
+        url: `${this.hostname}/api/channel/v1/read/${this.defaultChannelID}`,
+        method: this.API.getChannelAPI.method,
+        headers: this.API.getChannelAPI.headers,
+        cache: this.API.getDefaultChannelAPI.cache
+          ? this.API.getDefaultChannelAPI.cache
+          : 'default',
+      })
       .then((res) => {
         this.Frameworks = res.result.channel.frameworks;
       })

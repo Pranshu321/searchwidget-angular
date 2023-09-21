@@ -1,11 +1,11 @@
 <app-wrapper
-  [addtionalFilterConfig]="addtionalFilterConfig"
-  [filterConfig]="filterConfig"
+  [addtionalFilterConfig]="Configs?.addtionalFilterConfig"
+  [filterConfig]="Configs.filterConfig"
   [hostname]="hostname"
-  [formAPI]="formAPI"
+  [formAPI]="this.API.formAPI"
   [FrameworksArray]="Frameworks"
   [cardsFieldConfig]="cardsFieldsObject"
-  [termsAPI]="termsAPI"
-  [searchAPI]="searchAPI"
+  [termsAPI]="this.API.termsAPI"
+  [searchAPI]="this.API.searchAPI"
   [frameworkFieldName]="frameworkFieldName"
 ></app-wrapper>
