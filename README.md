@@ -1,6 +1,6 @@
 # Sunbird Angular Filtering
 
-An Angular filtering widget is a user interface component built using the React library that facilitates the process of filtering and refining data or content displayed on a web page. This widget is particularly useful when dealing with sunbird data or lists of items and allows users to interactively narrow down the displayed information based on their preferences or criteria.
+An Angular filtering widget is a user interface component built using the Angular library that facilitates the process of filtering and refining data or content displayed on a web page. This widget is particularly useful when dealing with sunbird data or lists of items and allows users to interactively narrow down the displayed information based on their preferences or criteria.
 
 - [NPM Package](https://www.npmjs.com/package/angular-sunbird-filtering)
 - [Project Details](Sunbird-Ed/SunbirdEd-portal#8690)
@@ -26,7 +26,7 @@ npm install filtering-package
 yarn add filtering-package
 ```
 
-- Import the Widget: In your React component where you want to use the filtering widget, import it at the top of your file:
+- Import the Widget: In your Angular component where you want to use the filtering widget, import it at the top of your file:
 - you need to import the filtering.module module. For example:
 
 ```js
@@ -52,45 +52,47 @@ The project is set up in a modular fashion, with each folder containing code for
 project
 ├── lib
 │   ├── components
-│       ├── cards-component
-│       │   ├── cards-component.component.css
-│       │   ├── cards-component.component.html
-│       │   ├── cards-component.component.spec.ts
-│       │   └── cards-component.component.ts
-│       ├── filters-component
-│       |   ├── filters-component.component.css
-│       |   ├── filters-component.component.html
-│       |   ├── filters-component.component.spec.ts
-│       |  └── filters-component.component.ts
+│       ├── cards
+│       │   ├── cards.component.css
+│       │   ├── cards.component.html
+│       │   ├── cards.component.spec.ts
+│       │   └── cards.component.ts
+│       ├── filters
+│       |   ├── filters.component.css
+│       |   ├── filters.component.html
+│       |   ├── filters.component.spec.ts
+│       |  └── filters.component.ts
 │       └── wrapper
 │            ├── wrapper.component.css
 │            ├── wrapper.component.html
 │            ├── wrapper.component.spec.ts
 │            └── wrapper.component.ts
-├── Functions
-│   ├── api.ts
-│   └── Service Functions.ts
-└── Interfaces
+├── services
+│   ├── api.service.ts
+│   └── filters.service.ts
+│   └── wrapper.service.ts
+└── models
     ├── interfaces.ts
-    └── Service Function_Interfaces.ts
+    └── serviceFunctionInterfaces.ts
 ```
 
 The following are some of the key files in the project setup:
 
 ### Algorithms
 
-The `Functions` folder contains the code for fetching data from a remote server and filtering functions and other important functions for optimal working.
+The `services` folder contains the code for fetching data from a remote server and filtering functions and other important functions for optimal working.
 
-- **api.ts :** This file defines the API endpoints. It contains the functions that are used to fetch data from the remote server.
-- **service_functions.ts :** The Service Function.ts file contains the service functions that are used to process the API response and additional refactoring.
+- **api.service.ts :** This file defines the API endpoints. It contains the functions that are used to fetch data from the remote server.
+- **filters.service.ts :** This file contains the functions used in the `filters` component that are used to process the process the data of the side filters optimally.
+- **wrapper.service.ts :** This file contains the functions used in the `wrapper` component that are used filter the data as per the formConfig of the side and providing the addtional filtering and card field management.
 
 ### Components
 
-- The cards-component folder contains the source code for the `CardsComponent` component. This component is used to render a list of cards.
-- The filters-component folder contains the source code for the `FiltersComponent` component. This component is used to create a filter input.
+- The cards folder contains the source code for the `CardsComponent` component. This component is used to render a list of cards.
+- The filters folder contains the source code for the `FiltersComponent` component. This component is used to create a filter input.
 - The wrapper folder contains the source code for the `WrapperComponent` component. This component is used to wrap the CardsComponent and FiltersComponent components together.
 
-### Interfaces
+### Models
 
 The interfaces folder contains the interface definitions. The `interface.ts` file defines the interface for the filter component. The `Service Function_Interfaces.ts` file defines the interface for the service functions.
 

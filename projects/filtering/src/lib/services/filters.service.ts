@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class FiltersService {
   constructor() {}
-  IsSingleSelect(OptionName: string, filterConfig: any) {
+  isSingleSelect(OptionName: string, filterConfig: any) {
     let flag = false;
     filterConfig.map((item: any) => {
       console.log(item);
@@ -30,7 +30,7 @@ export class FiltersService {
     });
     return flag;
   }
-  OptionNameisPresent(optionName: string, FiltersArray: any) {
+  optionNameisPresent(optionName: string, FiltersArray: any) {
     let flag = false;
     FiltersArray?.map((item: any) => {
       if (item.name.toLowerCase() === optionName.toLowerCase()) {

@@ -1,4 +1,4 @@
-export interface StyleProps {
+export interface styleProps {
   WrapperStyle?: {
     Container?: {};
     Sidebar?: {};
@@ -8,7 +8,7 @@ export interface StyleProps {
     ListDiv?: {};
   };
 
-  FilterStyle?: {
+  filterStyle?: {
     container?: {};
     OptionNameStyle?: {};
     OptionStyle?: {};
@@ -17,7 +17,7 @@ export interface StyleProps {
     OptionsItem?: {};
   };
 
-  CardStyle?: {
+  cardStyle?: {
     container?: {};
     headingDiv?: {};
     heading?: {};
@@ -33,9 +33,9 @@ export interface StyleProps {
   };
 }
 
-export interface Configs {
-  filterConfig: Array<FilterConfigProps>;
-  addtionalFilterConfig?: Array<FilterConfigProps>;
+export interface configs {
+  filterConfig: Array<filterConfigProps>;
+  addtionalFilterConfig?: Array<filterConfigProps>;
 }
 
 export interface inputAPIProps {
@@ -60,7 +60,7 @@ export interface allInputApiProps {
   getChannelAPI: inputAPIProps;
 }
 
-export interface CardStyle {
+export interface cardStyle {
   container?: {};
   headingDiv?: {};
   heading?: {};
@@ -75,7 +75,7 @@ export interface CardStyle {
   tag?: {};
 }
 
-export interface FilterStyle {
+export interface filterStyle {
   container?: {};
   OptionNameStyle?: {};
   OptionStyle?: {};
@@ -84,13 +84,13 @@ export interface FilterStyle {
   OptionsItem?: {};
 }
 
-export interface FilterConfigProps {
+export interface filterConfigProps {
   name: string;
   field: string;
   isEnabled?: boolean;
 }
 
-export type CardFieldsObject = {
+export type cardFieldsObject = {
   name?: {
     field: string;
     isEnabled?: boolean;
@@ -117,7 +117,7 @@ export type CardFieldsObject = {
   };
 };
 
-export interface ICourse {
+export interface iCourse {
   ownershipType: string[];
   copyright: string;
   board?: string;
@@ -195,12 +195,12 @@ export interface ICourse {
   node_id: number;
 }
 
-export interface ICardClick {
+export interface iCardClick {
   event: MouseEvent;
   data: any;
 }
 
-export interface WrapperProps {
+export interface wrapperProps {
   hostname: string;
   DefaultChannel: {
     url: string;
@@ -238,7 +238,7 @@ export interface WrapperProps {
     body: string;
   };
   Formurl: string;
-  CardFieldsProps: CardFieldsObject;
+  CardFieldsProps: cardFieldsObject;
   cache:
     | 'default'
     | 'no-store'
@@ -246,12 +246,12 @@ export interface WrapperProps {
     | 'force-cache'
     | 'only-if-cached'
     | 'no-cache';
-  styles?: StyleProps;
-  filterConfig: Array<FilterConfigProps>;
-  addtionalFilterConfig?: Array<FilterConfigProps> | undefined;
+  styles?: styleProps;
+  filterConfig: Array<filterConfigProps>;
+  addtionalFilterConfig?: Array<filterConfigProps> | undefined;
 }
 
-export interface ApiContextProps {
+export interface apiContextProps {
   Formurl: string;
   searchAPI: {
     url: string;
@@ -259,7 +259,7 @@ export interface ApiContextProps {
     headers?: object;
     body: string;
   };
-  CardFieldsProps: CardFieldsObject;
+  CardFieldsProps: cardFieldsObject;
   hostname: string;
   cache:
     | 'default'
@@ -268,9 +268,9 @@ export interface ApiContextProps {
     | 'force-cache'
     | 'only-if-cached'
     | 'no-cache';
-  styles?: StyleProps;
-  filterConfig: Array<FilterConfigProps>;
-  addtionalFilterConfig?: Array<FilterConfigProps> | undefined;
+  styles?: styleProps;
+  filterConfig: Array<filterConfigProps>;
+  addtionalFilterConfig?: Array<filterConfigProps> | undefined;
   termsAPI: {
     method: string;
     headers?: object;
@@ -279,7 +279,7 @@ export interface ApiContextProps {
   Frameworks: Array<string>;
 }
 
-export interface SingleSelectProps {
+export interface singleSelectProps {
   styles?: {
     container?: {};
     OptionNameStyle?: {};
@@ -293,16 +293,16 @@ export interface SingleSelectProps {
   Framework: string;
   setFramework: Function;
   Reset?: boolean;
-  FiltersArray: Array<FiltersArraySelectedOptionObject>;
+  FiltersArray: Array<filtersArraySelectedOptionObject>;
   setFiltersArray: (...args: any[]) => any;
 }
 
-export interface FiltersArraySelectedOptionObject {
+export interface filtersArraySelectedOptionObject {
   name: string;
   value: string[];
 }
 
-export interface SelectProps {
+export interface selectProps {
   styles?: {
     container?: {};
     OptionNameStyle?: {};
@@ -311,7 +311,7 @@ export interface SelectProps {
     select?: {};
     OptionsItem?: {};
   };
-  FiltersArray: Array<FiltersArraySelectedOptionObject>;
+  FiltersArray: Array<filtersArraySelectedOptionObject>;
   setFiltersArray: (...args: any[]) => any;
   options: Array<string>;
   optionName: string;
@@ -321,11 +321,11 @@ export interface SelectProps {
   setArrayNumber: (...args: any[]) => any;
 }
 
-export interface FilterProps {
+export interface filterProps {
   stylesFilterDiv?: {};
 }
 
-export interface CardProps {
+export interface cardProps {
   name: string;
   image?: string;
   subject: string;

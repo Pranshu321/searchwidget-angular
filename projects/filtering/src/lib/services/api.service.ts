@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { apiProps } from '../models/Service_Function_Interfaces';
+import { apiProps } from '../models/serviceFunctionInterfaces';
 
 @Injectable({
   providedIn: 'root',
 })
-export class ApiService {
+export class apiService {
   constructor() {}
   fetchData = async ({
     headers,

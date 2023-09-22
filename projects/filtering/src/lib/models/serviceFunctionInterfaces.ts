@@ -1,20 +1,20 @@
-interface FilterConfigProps {
+interface filterConfigProps {
   name: string;
   field: string;
   isEnabled?: boolean;
 }
 
-export interface UpdateConfigProps {
+export interface updateConfigProps {
   apiData: Array<any>;
-  filterConfig: Array<FilterConfigProps> | undefined;
-  addtionalFilterConfig?: Array<FilterConfigProps> | undefined;
+  filterConfig: Array<filterConfigProps> | undefined;
+  addtionalFilterConfig?: Array<filterConfigProps> | undefined;
 }
-export interface FilterDataExtractProps {
+export interface filterDataExtractProps {
   content: Array<object>;
   filterConfig: Array<any>;
   TermsObject: any;
 }
-export interface ServiceFunctionCardProps {
+export interface serviceFunctionCardProps {
   name?: string;
   image?: string;
   subject?: string;
@@ -22,7 +22,7 @@ export interface ServiceFunctionCardProps {
   publisher?: string;
   tags?: Array<string>;
 }
-export interface RenderContentProps {
+export interface renderContentProps {
   content: Array<object>;
   filtersSelected: Array<any>;
   filterConfig: Array<any>;

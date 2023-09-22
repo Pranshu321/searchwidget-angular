@@ -1,21 +1,21 @@
 import { Injectable } from '@angular/core';
 import {
-  ServiceFunctionCardProps,
-  FilterDataExtractProps,
-  RenderContentProps,
-  UpdateConfigProps,
-} from '../models/Service_Function_Interfaces';
+  serviceFunctionCardProps,
+  filterDataExtractProps,
+  renderContentProps,
+  updateConfigProps,
+} from '../models/serviceFunctionInterfaces';
 
 @Injectable({
   providedIn: 'root',
 })
 export class WrapperService {
   constructor() {}
-  UpdateConfig({
+  updateConfig({
     apiData,
     addtionalFilterConfig,
     filterConfig,
-  }: UpdateConfigProps) {
+  }: updateConfigProps) {
     let TempData = apiData;
     if (filterConfig?.length !== 0) {
       filterConfig?.map((item) => {
@@ -30,7 +30,7 @@ export class WrapperService {
       });
     }
     if (addtionalFilterConfig?.length !== 0) {
-      addtionalFilterConfig?.map((item) => {
+      addtionalFilterConfig?.map((item: any) => {
         const ItemName = item.name;
         const ItemField = item.field;
         const ItemIsEnabled =
@@ -57,11 +57,11 @@ export class WrapperService {
     return isEnable;
   }
 
-  FilterDataExtract({
+  filterDataExtract({
     content,
     filterConfig,
     TermsObject,
-  }: FilterDataExtractProps) {
+  }: filterDataExtractProps) {
     const AddtionalFieldsObject = filterConfig[0]?.data.additionalFields;
 
     const FilterConfigObject = {
@@ -122,11 +122,11 @@ export class WrapperService {
     };
   }
 
-  RenderContentFunction({
+  renderContentFunction({
     content,
     filtersSelected,
     filterConfig,
-  }: RenderContentProps) {
+  }: renderContentProps) {
     const AddtionalFieldsObject = filterConfig[0]?.data.additionalFields;
     const FilterConfigObject = {
       ...AddtionalFieldsObject,
@@ -165,11 +165,11 @@ export class WrapperService {
 
   CardFieldsRender(item: any, CardFieldsObject: any) {
     const FieldKeys = Object.keys(CardFieldsObject);
-    let ObjectReturn: ServiceFunctionCardProps = {};
+    let ObjectReturn: serviceFunctionCardProps = {};
     let tagsArray: Array<string> = [];
     FieldKeys.map((Field: string) => {
       if (item.hasOwnProperty(CardFieldsObject[Field].field)) {
-        ObjectReturn[Field as keyof ServiceFunctionCardProps] = this.isArray(
+        ObjectReturn[Field as keyof serviceFunctionCardProps] = this.isArray(
           item[CardFieldsObject[Field].field]
         );
       }
@@ -185,7 +185,7 @@ export class WrapperService {
     return ObjectReturn;
   }
 
-  TermsFetch(
+  termsFetch(
     data: any,
     // setMasterFieldsTerms:   ,
     FilterConfig?: any
@@ -216,7 +216,7 @@ export class WrapperService {
     return [TermsObject];
   }
 
-  MasterFieldContentChange(filtersArray: any, filterConfig: any, body: string) {
+  masterFieldContentChange(filtersArray: any, filterConfig: any, body: string) {
     const bodyJSON = JSON.parse(body);
     const TempObj: any = {};
 
@@ -236,7 +236,7 @@ export class WrapperService {
     return JSON.stringify(bodyJSON);
   }
 
-  DependentTermsFetch(thing: any, filters: any, filterOptions: any) {
+  dependentTermsFetch(thing: any, filters: any, filterOptions: any) {
     let obj: any = {};
     thing.result.framework.categories?.map((item: any) => {
       filters?.map((filter: any) => {
@@ -276,7 +276,7 @@ export class WrapperService {
     return filterOptions;
   }
 
-  FrameworksOptionsRender(Frameworks: Array<any>) {
+  frameworksOptionsRender(Frameworks: Array<any>) {
     let options: Array<string> = [];
     Frameworks?.map((item: any) => {
       options.push(item.name);
@@ -284,7 +284,7 @@ export class WrapperService {
     return options;
   }
 
-  GetFrameWorkID(Frameworks: Array<any>, Framework: string) {
+  getFrameworkID(Frameworks: Array<any>, Framework: string) {
     let id: string = '';
     Frameworks?.map((item: any) => {
       if (item.name === Framework) {

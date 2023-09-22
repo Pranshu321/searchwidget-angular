@@ -5,9 +5,9 @@ import {
   OnChanges,
   SimpleChanges,
 } from '@angular/core';
-import { StyleProps, inputAPIProps } from '../../models/interfaces';
+import { styleProps, inputAPIProps } from '../../models/interfaces';
 import { WrapperService } from '../../services/wrapper.service';
-import { ApiService } from '../../services/api.service';
+import { apiService } from '../../services/api.service';
 
 @Component({
   selector: 'app-wrapper',
@@ -36,7 +36,7 @@ export class WrapperComponent implements OnInit, OnChanges {
   @Input() frameworkFieldName: string = '';
   @Input() FrameworksArray: Array<any> = [];
   @Input() hostname: string = '';
-  @Input() styles: StyleProps = {};
+  @Input() styles: styleProps = {};
   @Input() formAPI: inputAPIProps = {
     url: '',
     headers: {},
@@ -62,7 +62,7 @@ export class WrapperComponent implements OnInit, OnChanges {
   };
   constructor(
     private wrapperService: WrapperService,
-    private apiService: ApiService
+    private apiService: apiService
   ) {}
 
   fetchAndUpdateFilterConfig() {
@@ -73,7 +73,7 @@ export class WrapperComponent implements OnInit, OnChanges {
         method: this.formAPI.method,
       })
       .then((res: any) => {
-        this.apiSettedFilterConfig = this.wrapperService.UpdateConfig({
+        this.apiSettedFilterConfig = this.wrapperService.updateConfig({
           apiData: res,
           filterConfig: this.filterConfig,
           addtionalFilterConfig: this.addtionalFilterConfig,
@@ -85,7 +85,7 @@ export class WrapperComponent implements OnInit, OnChanges {
     const frameworkID =
       this.framework === ''
         ? 'ekstep_ncert_k-12'
-        : this.wrapperService.GetFrameWorkID(
+        : this.wrapperService.getFrameworkID(
             this.FrameworksArray,
             this.framework
           );
@@ -111,7 +111,7 @@ export class WrapperComponent implements OnInit, OnChanges {
         headers: this.termsAPI.headers,
       })
       .then((res) => {
-        this.masterFields = this.wrapperService.TermsFetch(
+        this.masterFields = this.wrapperService.termsFetch(
           res,
           this.apiSettedFilterConfig
         );
@@ -138,7 +138,7 @@ export class WrapperComponent implements OnInit, OnChanges {
     const frameworkID =
       this.framework === ''
         ? 'ekstep_ncert_k-12'
-        : this.wrapperService.GetFrameWorkID(
+        : this.wrapperService.getFrameworkID(
             this.FrameworksArray,
             this.framework
           );
@@ -150,7 +150,7 @@ export class WrapperComponent implements OnInit, OnChanges {
         headers: this.termsAPI.headers,
       })
       .then((res) => {
-        const data = this.wrapperService.DependentTermsFetch(
+        const data = this.wrapperService.dependentTermsFetch(
           res,
           this.filtersArray,
           this.masterFields
@@ -172,7 +172,7 @@ export class WrapperComponent implements OnInit, OnChanges {
               headers: this.termsAPI.headers,
             })
             .then((res) => {
-              this.masterFields = this.wrapperService.TermsFetch(
+              this.masterFields = this.wrapperService.termsFetch(
                 res,
                 this.apiSettedFilterConfig
               );
@@ -198,7 +198,7 @@ export class WrapperComponent implements OnInit, OnChanges {
   }
 
   frameworksFetch() {
-    const FrameWorksOption = this.wrapperService.FrameworksOptionsRender(
+    const FrameWorksOption = this.wrapperService.frameworksOptionsRender(
       this.FrameworksArray
     );
     this.frameworksOptionArray = FrameWorksOption;
@@ -216,7 +216,7 @@ export class WrapperComponent implements OnInit, OnChanges {
   }
 
   masterBodyContentChange() {
-    this.filterBodySet = this.wrapperService.MasterFieldContentChange(
+    this.filterBodySet = this.wrapperService.masterFieldContentChange(
       this.allFiltersArray !== undefined && this.allFiltersArray.length !== 0
         ? this.allFiltersArray
         : this.filtersArray,
@@ -230,7 +230,7 @@ export class WrapperComponent implements OnInit, OnChanges {
     const frameworkID =
       this.framework === ''
         ? 'ekstep_ncert_k-12'
-        : this.wrapperService.GetFrameWorkID(
+        : this.wrapperService.getFrameworkID(
             this.FrameworksArray,
             this.framework
           );
@@ -263,7 +263,7 @@ export class WrapperComponent implements OnInit, OnChanges {
   }
 
   filterDataRender() {
-    const ReturnData = this.wrapperService.FilterDataExtract({
+    const ReturnData = this.wrapperService.filterDataExtract({
       content: this.content,
       filterConfig: this.apiSettedFilterConfig,
       TermsObject: this.addtionalFilterConfig,
@@ -281,7 +281,7 @@ export class WrapperComponent implements OnInit, OnChanges {
   }
   AddtionalContent: any;
   renderContentAddtionalFilter() {
-    this.AddtionalContent = this.wrapperService.RenderContentFunction({
+    this.AddtionalContent = this.wrapperService.renderContentFunction({
       content: this.content,
       filtersSelected: this.filtersArray,
       filterConfig: this.apiSettedFilterConfig,

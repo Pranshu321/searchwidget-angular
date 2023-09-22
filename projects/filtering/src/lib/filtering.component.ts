@@ -1,12 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
 import {
-  CardFieldsObject,
-  Configs,
-  StyleProps,
+  cardFieldsObject,
+  configs,
+  styleProps,
   allInputApiProps,
   inputAPIProps,
 } from './models/interfaces';
-import { ApiService } from './services/api.service';
+import { apiService } from './services/api.service';
 
 export function required(target: object, propertyKey: string) {
   Object.defineProperty(target, propertyKey, {
@@ -37,14 +37,14 @@ const defaultAPISet: inputAPIProps = {
   templateUrl: './filtering.component.html',
 })
 export class FilteringComponent implements OnInit {
-  constructor(private apiService: ApiService) {}
+  constructor(private apiService: apiService) {}
   @Input() @required hostname: string = '';
   @Input() @required frameworkFieldName: string = '';
-  @Input() @required Configs: Configs = {
+  @Input() @required Configs: configs = {
     filterConfig: [],
     addtionalFilterConfig: [],
   };
-  @Input() @required cardsFieldsObject: CardFieldsObject = {};
+  @Input() @required cardsFieldsObject: cardFieldsObject = {};
   @Input() @required API: allInputApiProps = {
     formAPI: defaultAPISet,
     searchAPI: defaultAPISet,
@@ -53,7 +53,7 @@ export class FilteringComponent implements OnInit {
     getChannelAPI: defaultAPISet,
   };
 
-  @Input() styles: StyleProps = {};
+  @Input() styles: styleProps = {};
 
   Frameworks: any;
   private defaultChannelID: string = '';

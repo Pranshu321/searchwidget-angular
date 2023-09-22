@@ -2,12 +2,12 @@
   <button
     [style]="styles.WrapperStyle?.Button"
     class="button"
-    (click)="FilterShow()"
+    (click)="filterShow()"
   >
     Filter
   </button>
   <div [style]="styles.WrapperStyle?.Sidebar" id="sidebar" class="faKsuq">
-    <button class="reset" (click)="Reset()">Reset</button>
+    <button class="reset" (click)="reset()">Reset</button>
     <div
       [style]="styles.WrapperStyle?.FiltersDiv"
       class="sidebar"
@@ -20,11 +20,11 @@
         <lib-filters-component
           [Name]="Field.name"
           [OptionValue]="Field.terms"
-          (FiltersArrayEvent)="LOG($event)"
+          (FiltersArrayEvent)="logCards($event)"
           [addtionalFilterConfig]="addtionalFilterConfig"
           [filterConfig]="filterConfig"
-          [AllFiltersArray]="AllFiltersArray"
-          [styles]="styles.FilterStyle !== undefined ? styles.FilterStyle : {}"
+          [AllFiltersArray]="allFiltersArray"
+          [styles]="styles.filterStyle !== undefined ? styles.filterStyle : {}"
         >
         </lib-filters-component>
       </div>
@@ -34,13 +34,13 @@
     <ng-container *ngIf="AddtionalContent.length === 0">
       <div *ngFor="let item of content">
         <lib-cards-component
-          [name]="this.CardsFieldCheck('name', item)"
-          [image]="this.CardsFieldCheck('image', item)"
-          [type]="this.CardsFieldCheck('type', item)"
-          [subject]="this.CardsFieldCheck('subject', item)"
-          [tags]="this.CardsFieldCheck('tags', item)"
-          [publisher]="this.CardsFieldCheck('publisher', item)"
-          [styles]="styles.CardStyle !== undefined ? styles.CardStyle : {}"
+          [name]="this.cardsFieldCheck('name', item)"
+          [image]="this.cardsFieldCheck('image', item)"
+          [type]="this.cardsFieldCheck('type', item)"
+          [subject]="this.cardsFieldCheck('subject', item)"
+          [tags]="this.cardsFieldCheck('tags', item)"
+          [publisher]="this.cardsFieldCheck('publisher', item)"
+          [styles]="styles.cardStyle !== undefined ? styles.cardStyle : {}"
         >
         </lib-cards-component>
       </div>
@@ -48,13 +48,13 @@
     <ng-container *ngIf="AddtionalContent.length !== 0">
       <div *ngFor="let item of AddtionalContent">
         <lib-cards-component
-          [name]="this.CardsFieldCheck('name', item)"
-          [image]="this.CardsFieldCheck('image', item)"
-          [type]="this.CardsFieldCheck('type', item)"
-          [subject]="this.CardsFieldCheck('subject', item)"
-          [tags]="this.CardsFieldCheck('tags', item)"
-          [publisher]="this.CardsFieldCheck('publisher', item)"
-          [styles]="styles.CardStyle !== undefined ? styles.CardStyle : {}"
+          [name]="this.cardsFieldCheck('name', item)"
+          [image]="this.cardsFieldCheck('image', item)"
+          [type]="this.cardsFieldCheck('type', item)"
+          [subject]="this.cardsFieldCheck('subject', item)"
+          [tags]="this.cardsFieldCheck('tags', item)"
+          [publisher]="this.cardsFieldCheck('publisher', item)"
+          [styles]="styles.cardStyle !== undefined ? styles.cardStyle : {}"
         >
         </lib-cards-component>
       </div>
