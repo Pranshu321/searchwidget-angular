@@ -48,8 +48,8 @@ export class WrapperService {
 
   isEnabled(filterConfig: any, itemName: string) {
     let isEnable = true;
-    const Keys = Object.keys(filterConfig);
-    Keys.map((item) => {
+    const keys = Object.keys(filterConfig);
+    keys.map((item) => {
       if (item.toLowerCase() === itemName.toLowerCase()) {
         isEnable = filterConfig[item].isEnabled;
       }
@@ -60,7 +60,7 @@ export class WrapperService {
   filterDataExtract({
     content,
     filterConfig,
-    TermsObject,
+    termsObject,
   }: filterDataExtractProps) {
     const AddtionalFieldsObject = filterConfig[0]?.data.additionalFields;
 
@@ -75,8 +75,8 @@ export class WrapperService {
       OptionNameArray?.map((item: any) => {
         if (this.isEnabled(FilterConfigObject, item)) {
           let temp: any;
-          if (TermsObject.hasOwnProperty(item)) {
-            temp = TermsObject[item];
+          if (termsObject.hasOwnProperty(item)) {
+            temp = termsObject[item];
           } else {
             let fieldName = AddtionalFieldsObject[item]?.field;
 
@@ -163,49 +163,49 @@ export class WrapperService {
     }
   }
 
-  CardFieldsRender(item: any, CardFieldsObject: any) {
-    const FieldKeys = Object.keys(CardFieldsObject);
-    let ObjectReturn: serviceFunctionCardProps = {};
+  CardFieldsRender(item: any, cardFieldsObject: any) {
+    const fieldKeys = Object.keys(cardFieldsObject);
+    let objectReturn: serviceFunctionCardProps = {};
     let tagsArray: Array<string> = [];
-    FieldKeys.map((Field: string) => {
-      if (item.hasOwnProperty(CardFieldsObject[Field].field)) {
-        ObjectReturn[Field as keyof serviceFunctionCardProps] = this.isArray(
-          item[CardFieldsObject[Field].field]
+    fieldKeys.map((Field: string) => {
+      if (item.hasOwnProperty(cardFieldsObject[Field].field)) {
+        objectReturn[Field as keyof serviceFunctionCardProps] = this.isArray(
+          item[cardFieldsObject[Field].field]
         );
       }
       if (Field === 'tags') {
-        const TagsFieldsArray = CardFieldsObject[Field].TagsFieldArray;
+        const TagsFieldsArray = cardFieldsObject[Field].tagsFieldArray;
         TagsFieldsArray.map((tagField: string) => {
           if (item.hasOwnProperty(tagField))
             tagsArray.push(this.isArray(item[tagField]));
         });
       }
     });
-    ObjectReturn['tags'] = tagsArray;
-    return ObjectReturn;
+    objectReturn['tags'] = tagsArray;
+    return objectReturn;
   }
 
   termsFetch(
     data: any,
     // setMasterFieldsTerms:   ,
-    FilterConfig?: any
+    filterConfig?: any
   ) {
-    const Categories = data.result.framework.categories;
-    const TermsObject: any = {};
-    Categories.map((item: any) => {
+    const categories = data.result.framework.categories;
+    const termsObject: any = {};
+    categories.map((item: any) => {
       const name = item.name;
-      if (FilterConfig[0].data.PrimaryFields[name]?.isEnabled) {
+      if (filterConfig[0].data.PrimaryFields[name]?.isEnabled) {
         const associations = item.terms[0].associations
           ? item.terms[0].associations
           : item.terms;
         associations.map((item: any) => {
-          if (TermsObject.hasOwnProperty(item.category)) {
-            let tempArr = TermsObject[item.category as keyof any].terms;
+          if (termsObject.hasOwnProperty(item.category)) {
+            let tempArr = termsObject[item.category as keyof any].terms;
             tempArr.push(item.name);
             const newSet = new Set(tempArr);
-            TermsObject[item.category as keyof any].terms = Array.from(newSet);
+            termsObject[item.category as keyof any].terms = Array.from(newSet);
           } else {
-            TermsObject[item.category as keyof any] = {
+            termsObject[item.category as keyof any] = {
               name: item.category,
               terms: [item.name],
             };
@@ -213,27 +213,27 @@ export class WrapperService {
         });
       }
     });
-    return [TermsObject];
+    return [termsObject];
   }
 
   masterFieldContentChange(filtersArray: any, filterConfig: any, body: string) {
-    const bodyJSON = JSON.parse(body);
-    const TempObj: any = {};
+    const bodyJson = JSON.parse(body);
+    const tempObj: any = {};
 
     filtersArray.map((item: any) => {
       const itemName = item.name.toLowerCase();
       const configfiled = filterConfig.filter((fil: any) => {
         return fil.name.toLowerCase() === itemName;
       });
-      TempObj[configfiled[0]?.field] = item.value;
+      tempObj[configfiled[0]?.field] = item.value;
     });
-    const keys = Object.keys(bodyJSON.request.filters);
+    const keys = Object.keys(bodyJson.request.filters);
     keys.map((item: any) => {
-      if (TempObj[item] !== undefined) {
-        bodyJSON.request.filters[item] = TempObj[item];
+      if (tempObj[item] !== undefined) {
+        bodyJson.request.filters[item] = tempObj[item];
       }
     });
-    return JSON.stringify(bodyJSON);
+    return JSON.stringify(bodyJson);
   }
 
   dependentTermsFetch(thing: any, filters: any, filterOptions: any) {
@@ -267,8 +267,8 @@ export class WrapperService {
         }
       });
     });
-    const Keys = Object.keys(filterOptions[0]);
-    Keys.map((item: any) => {
+    const keys = Object.keys(filterOptions[0]);
+    keys.map((item: any) => {
       if (obj.hasOwnProperty(item)) {
         filterOptions[0][item].terms = obj[item];
       }
@@ -276,18 +276,18 @@ export class WrapperService {
     return filterOptions;
   }
 
-  frameworksOptionsRender(Frameworks: Array<any>) {
+  frameworksOptionsRender(frameworks: Array<any>) {
     let options: Array<string> = [];
-    Frameworks?.map((item: any) => {
+    frameworks?.map((item: any) => {
       options.push(item.name);
     });
     return options;
   }
 
-  getFrameworkID(Frameworks: Array<any>, Framework: string) {
+  getFrameworkID(frameworks: Array<any>, framework: string) {
     let id: string = '';
-    Frameworks?.map((item: any) => {
-      if (item.name === Framework) {
+    frameworks?.map((item: any) => {
+      if (item.name === framework) {
         id = item.identifier;
       }
     });

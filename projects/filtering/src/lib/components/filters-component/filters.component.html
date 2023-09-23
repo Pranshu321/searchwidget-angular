@@ -2,7 +2,7 @@
   <div [style]="styles.container">
     <div>
       <h4
-        [style]="styles.OptionNameStyle"
+        [style]="styles.optionNameStyle"
         style="
           color: rgb(0, 0, 0);
           margin-bottom: 5px;
@@ -10,26 +10,26 @@
           font-size: 19px;
         "
       >
-        {{ this.Name.toUpperCase() }}
+        {{ this.name.toUpperCase() }}
       </h4>
       <div
         [style]="styles.select"
-        *ngIf="isSelected(this.Name)"
-        class="dsHhXj"
-        (click)="OptionsShow(this.Name)"
+        *ngIf="isSelected(this.name)"
+        class="select-box"
+        (click)="optionsShow(this.name)"
       >
         Select
       </div>
       <div
-        *ngIf="!isSelected(this.Name)"
-        (click)="OptionsShow(this.Name)"
-        class="dsHhXj"
+        *ngIf="!isSelected(this.name)"
+        (click)="optionsShow(this.name)"
+        class="select-box"
       >
-        <div *ngFor="let term of this.AllFiltersArray">
+        <div *ngFor="let term of this.allFiltersArray">
           <div
             [style]="styles.select"
             style="display: flex; column-gap: 4px; flex-wrap: nowrap"
-            *ngIf="term.name.toLowerCase() === this.Name.toLowerCase()"
+            *ngIf="term.name.toLowerCase() === this.name.toLowerCase()"
           >
             <div *ngFor="let option of term.value">
               {{ option }}
@@ -37,22 +37,22 @@
           </div>
         </div>
       </div>
-      <div *ngIf="getOptionStatus(this.Name)">
-        <div [style]="styles.OptionDivStyle" class="fugxRD">
-          <ng-container *ngFor="let term of OptionValue">
+      <div *ngIf="getOptionStatus(this.name)">
+        <div [style]="styles.optionDivStyle" class="option-div">
+          <ng-container *ngFor="let term of optionValue">
             <div
-              [style]="styles.OptionStyle"
-              (click)="addFilter(this.Name, term)"
-              class="hHjkUf"
+              [style]="styles.optionStyle"
+              (click)="addFilter(this.name, term)"
+              class="option-item-div"
             >
               <div
-                [style]="styles.OptionsItem"
-                class="ghPFCr"
+                [style]="styles.optionsItem"
+                class="option-item"
                 style="cursor: pointer"
               >
                 {{ term }}
               </div>
-              <span *ngIf="CheckIfOptionPresent(this.Name, term)">✅</span>
+              <span *ngIf="CheckIfOptionPresent(this.name, term)">✅</span>
             </div>
           </ng-container>
         </div>

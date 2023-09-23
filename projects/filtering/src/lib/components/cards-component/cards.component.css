@@ -4,7 +4,7 @@
   font-family: "Noto Sans", sans-serif;
 }
 
-.Container {
+.container {
   display: block;
   overflow: hidden;
   padding: 1rem;
@@ -18,25 +18,25 @@
   width: 98%;
   width: 23rem;
 }
-.Container:hover {
+.container:hover {
   box-shadow: 8px 8px 8px 8px rgba(0, 0, 0, 0.2);
   scale: 1.001;
   animation: both 0.3s ease-in-out;
   cursor: pointer;
 }
 
-.TopContent {
+.top-content {
   display: flex;
   justify-content: space-between;
 }
 
-.Link {
+.link {
   font-weight: bolder;
   color: #111827;
   font-size: 15px;
 }
 
-.Image {
+.image {
   object-fit: cover;
   border-radius: 9999px;
   width: 4rem;
@@ -44,7 +44,7 @@
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 }
 
-.TagsDiv {
+.tags-div {
   display: flex;
   column-gap: 0.75rem;
   font-size: 0.4rem;
@@ -54,7 +54,7 @@
   max-width: fit-content;
 }
 
-.Tags {
+.tags {
   display: inline-flex;
   padding-top: 5px;
   padding-bottom: 5px;
@@ -70,13 +70,13 @@
   background-color: #a7f3d0;
 }
 
-.LowerItem {
+.lower-item {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.DescType {
+.desc-type {
   font-size: 0.875rem;
   line-height: 1.25rem;
   font-weight: 600;
@@ -84,7 +84,7 @@
   color: #4b5563;
 }
 
-.DetailDesc {
+.detail-desc {
   font-size: 0.75rem;
   line-height: 1rem;
   width: fit-content;
@@ -93,7 +93,7 @@
   color: #6b7280;
 }
 
-.LowerDiv {
+.lower-div {
   display: flex;
   margin-top: 1rem;
   gap: 1rem;
@@ -102,29 +102,29 @@
 }
 
 @media (min-width: 1024px) {
-  .Container {
+  .container {
     margin-top: 0;
     margin-bottom: 0;
     width: 21rem;
     max-height: fit-content;
     min-height: 11.5rem;
   }
-  .Link {
+  .link {
     font-size: 1.5rem;
   }
-  .ImageDiv {
+  .image-div {
     margin-top: 0;
     margin-bottom: 0;
   }
 }
 
-.ImageDiv {
+.image-div {
   display: block;
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
 }
 
-.Type {
+.type {
   font-size: 15px;
   font-weight: 800;
   margin-top: -10px;
@@ -132,17 +132,17 @@
 }
 
 @media screen and (max-width: 500px) {
-  .Container {
+  .container {
     width: 23rem;
   }
 }
 
 @media (min-width: 640px) {
-  .TopContent {
+  .top-content {
     justify-content: space-between;
     gap: 1rem;
   }
-  .LowerDiv {
+  .lower-div {
     gap: 1.5rem;
   }
 }

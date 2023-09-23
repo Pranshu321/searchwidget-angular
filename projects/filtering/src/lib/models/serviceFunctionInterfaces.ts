@@ -12,7 +12,7 @@ export interface updateConfigProps {
 export interface filterDataExtractProps {
   content: Array<object>;
   filterConfig: Array<any>;
-  TermsObject: any;
+  termsObject: any;
 }
 export interface serviceFunctionCardProps {
   name?: string;

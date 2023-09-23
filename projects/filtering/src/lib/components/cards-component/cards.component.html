@@ -1,15 +1,15 @@
 <div>
-  <div [style]="styles.container" class="Container">
-    <div [style]="styles.headingDiv" class="TopContent">
+  <div [style]="styles.container" class="container">
+    <div [style]="styles.headingDiv" class="top-content">
       <div>
-        <p [style]="styles.heading" class="Link" style="font-size: 18px">
+        <p [style]="styles.heading" class="link" style="font-size: 18px">
           {{ this.name }}
         </p>
-        <p [style]="styles.type" class="Type">{{ this.type }}</p>
+        <p [style]="styles.type" class="type">{{ this.type }}</p>
       </div>
-      <div [style]="styles.imageDiv" class="ImageDiv">
+      <div [style]="styles.imageDiv" class="image-div">
         <img
-          class="Image"
+          class="image"
           [style]="styles.image"
           [src]="
             this.image ||
@@ -19,19 +19,19 @@
       </div>
     </div>
     <div>
-      <div [style]="styles.tagsDiv" class="TagsDiv" *ngIf="tags.length">
+      <div [style]="styles.tagsDiv" class="tags-div" *ngIf="tags.length">
         <ng-container *ngFor="let tag of this.tags">
-          <div [style]="styles.tag" *ngIf="tag" class="Tags">{{ tag }}</div>
+          <div [style]="styles.tag" *ngIf="tag" class="tags">{{ tag }}</div>
         </ng-container>
       </div>
-      <div [style]="styles.LowerDiv" class="LowerDiv">
-        <div [style]="styles.LowerItem" class="LowerItem" *ngIf="subject">
-          <dt [style]="styles.LowerDT" class="DescType">Subject</dt>
-          <dd [style]="styles.LowerDD" class="DetailDesc">{{ subject }}</dd>
+      <div [style]="styles.lowerDiv" class="lower-div">
+        <div [style]="styles.lowerItem" class="lower-item" *ngIf="subject">
+          <dt [style]="styles.lowerDt" class="desc-type">Subject</dt>
+          <dd [style]="styles.lowerDd" class="detail-desc">{{ subject }}</dd>
         </div>
-        <div [style]="styles.LowerItem" class="LowerItem" *ngIf="publisher">
-          <dt [style]="styles.LowerDT" class="DescType">Publisher</dt>
-          <dd [style]="styles.LowerDD" class="DetailDesc">
+        <div [style]="styles.lowerItem" class="lower-item" *ngIf="publisher">
+          <dt [style]="styles.lowerDt" class="desc-type">Publisher</dt>
+          <dd [style]="styles.lowerDd" class="detail-desc">
             {{ this.publisher }}
           </dd>
         </div>

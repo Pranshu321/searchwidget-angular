@@ -113,7 +113,7 @@ The interfaces folder contains the interface definitions. The `interface.ts` fil
 ### Form
 
 Description: The Form configuration which configures the
-Field: Formurl
+Field: formUrl
 
 ```js
 [
@@ -257,7 +257,7 @@ Field: Formurl
 - Method: The HTTP request method for Get Channel requests.
 - Headers: HTTP headers are included in Get Channel requests.
 - Cache: The caching strategy applied to Get Channel requests.
-- Field: GetChannel
+- Field: getChannel
 
 ### Terms Read Configuration:
 
@@ -268,7 +268,7 @@ Field: Formurl
 - Method: The HTTP request method for reading terms.
 - Headers: HTTP headers are included in terms of reading requests.
 - Body: The content of the request body for terms reading requests (typically empty).
-- Field: TermsRead
+- Field: termsRead
 
 ### Hostname:
 
@@ -277,20 +277,20 @@ Field: Formurl
 
 ### Card Fields Properties:
 
-Description: This section defines properties related to the display of cards or items. Cards are often used to represent data visually. We have to put Fields in `CardFieldsProps` which we have to show on the card.
+Description: This section defines properties related to the display of cards or items. Cards are often used to represent data visually. We have to put Fields in `cardFieldsProps` which we have to show on the card.
 
 **Fields Accepted:**
 
-- Name: The field name for card display.
-- Type: The type of field for card display.
-- Tags: An array of tags associated with the card.
-- Image: The field used for displaying card images.
+- name: The field name for card display.
+- type: The type of field for card display.
+- tags: An array of tags associated with the card.
+- image: The field used for displaying card images.
 - Publisher: The field used for displaying the card's publisher information.
 - Subject: The field used for displaying the card's subject.
-- Field: CardFieldsProps
+- Field: cardFieldsProps
 
 ```ts
-CardFieldsProps={{
+cardFieldsProps={{
           name: {
             field: 'name',
           },
@@ -298,7 +298,7 @@ CardFieldsProps={{
             field: "se_subjects"
           },
           tags: {
-            TagsFieldArray: [
+            tagsFieldArray: [
               "medium",
               "se_boards",
               "se_subjects",
@@ -323,7 +323,7 @@ Field: cache
 
 **Fields Accepted:**
 
-- Name: The display name of the filter.
+- name: The display name of the filter.
 - Field: The corresponding API field associated with the filter.
 
 ```
@@ -343,7 +343,7 @@ Grade Level
 
 **Fields Accepted:**
 
-- Name: The display name of the filter.
+- name: The display name of the filter.
 - Field: The corresponding API field associated with the filter.
 - Is Enabled: Indicates whether the filter is enabled (true or false).
 

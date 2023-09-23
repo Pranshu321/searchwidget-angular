@@ -1,37 +1,37 @@
-<div [style]="styles.WrapperStyle?.Container" class="mainDiv">
+<div [style]="styles.wrapperStyle?.container" class="mainDiv">
   <button
-    [style]="styles.WrapperStyle?.Button"
+    [style]="styles.wrapperStyle?.button"
     class="button"
     (click)="filterShow()"
   >
     Filter
   </button>
-  <div [style]="styles.WrapperStyle?.Sidebar" id="sidebar" class="faKsuq">
+  <div [style]="styles.wrapperStyle?.sidebar" id="sidebar" class="sidebar">
     <button class="reset" (click)="reset()">Reset</button>
     <div
-      [style]="styles.WrapperStyle?.FiltersDiv"
+      [style]="styles.wrapperStyle?.filtersDiv"
       class="sidebar"
       *ngIf="AllOptions.length !== 0"
     >
       <div
-        [style]="styles.WrapperStyle?.Filter"
+        [style]="styles.wrapperStyle?.filter"
         *ngFor="let Field of AllOptions"
       >
         <lib-filters-component
-          [Name]="Field.name"
-          [OptionValue]="Field.terms"
-          (FiltersArrayEvent)="logCards($event)"
+          [name]="Field.name"
+          [optionValue]="Field.terms"
+          (filtersArrayEvent)="logCards($event)"
           [addtionalFilterConfig]="addtionalFilterConfig"
           [filterConfig]="filterConfig"
-          [AllFiltersArray]="allFiltersArray"
+          [allFiltersArray]="allFiltersArray"
           [styles]="styles.filterStyle !== undefined ? styles.filterStyle : {}"
         >
         </lib-filters-component>
       </div>
     </div>
   </div>
-  <div [style]="styles.WrapperStyle?.ListDiv" class="listDiv">
-    <ng-container *ngIf="AddtionalContent.length === 0">
+  <div [style]="styles.wrapperStyle?.listDiv" class="listDiv">
+    <ng-container *ngIf="addtionalContent.length === 0">
       <div *ngFor="let item of content">
         <lib-cards-component
           [name]="this.cardsFieldCheck('name', item)"
@@ -45,8 +45,8 @@
         </lib-cards-component>
       </div>
     </ng-container>
-    <ng-container *ngIf="AddtionalContent.length !== 0">
-      <div *ngFor="let item of AddtionalContent">
+    <ng-container *ngIf="addtionalContent.length !== 0">
+      <div *ngFor="let item of addtionalContent">
         <lib-cards-component
           [name]="this.cardsFieldCheck('name', item)"
           [image]="this.cardsFieldCheck('image', item)"

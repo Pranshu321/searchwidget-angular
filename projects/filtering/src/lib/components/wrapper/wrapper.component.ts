@@ -17,7 +17,7 @@ import { apiService } from '../../services/api.service';
 export class WrapperComponent implements OnInit, OnChanges {
   content: Array<{ [key: string]: any }> = [];
   @Input() filterConfig: Array<any> = [];
-  @Input() addtionalFilterConfig: Array<any> = [];
+  @Input() addtionalFilterConfig: Array<any> | any = [];
   apiSettedFilterConfig: Array<any> = [];
   filterOptionsData: Array<{ [key: string]: any }> = [];
   tags: Array<string> = [];
@@ -37,7 +37,7 @@ export class WrapperComponent implements OnInit, OnChanges {
   @Input() FrameworksArray: Array<any> = [];
   @Input() hostname: string = '';
   @Input() styles: styleProps = {};
-  @Input() formAPI: inputAPIProps = {
+  @Input() formApi: inputAPIProps = {
     url: '',
     headers: {},
     method: '',
@@ -45,15 +45,15 @@ export class WrapperComponent implements OnInit, OnChanges {
     cache: 'default',
   };
   @Input() cardsFieldConfig: { [key: string]: any } = {};
-  @Input() searchAPI: inputAPIProps = {
+  @Input() searchApi: inputAPIProps = {
     url: '',
     headers: {},
     method: '',
     body: '',
     cache: 'default',
   };
-  filterBodySet: any = this.searchAPI.body;
-  @Input() termsAPI: inputAPIProps = {
+  filterBodySet: any = this.searchApi.body;
+  @Input() termsApi: inputAPIProps = {
     url: '',
     headers: {},
     method: '',
@@ -68,9 +68,9 @@ export class WrapperComponent implements OnInit, OnChanges {
   fetchAndUpdateFilterConfig() {
     this.apiService
       .fetchData({
-        url: this.formAPI.url,
-        cache: this.formAPI.cache ? this.formAPI.cache : 'default',
-        method: this.formAPI.method,
+        url: this.formApi.url,
+        cache: this.formApi.cache ? this.formApi.cache : 'default',
+        method: this.formApi.method,
       })
       .then((res: any) => {
         this.apiSettedFilterConfig = this.wrapperService.updateConfig({
@@ -82,7 +82,7 @@ export class WrapperComponent implements OnInit, OnChanges {
       .catch((err: any) => {
         console.log(err);
       });
-    const frameworkID =
+    const frameworkId =
       this.framework === ''
         ? 'ekstep_ncert_k-12'
         : this.wrapperService.getFrameworkID(
@@ -91,11 +91,11 @@ export class WrapperComponent implements OnInit, OnChanges {
           );
     this.apiService
       .fetchData({
-        url: `${this.hostname}/api/content/v1/search?orgdetails=orgName,email&framework=${frameworkID}`,
-        cache: this.searchAPI.cache ? this.searchAPI.cache : 'default',
-        method: this.searchAPI.method,
-        body: this.searchAPI.body,
-        headers: this.searchAPI.headers,
+        url: `${this.hostname}/api/content/v1/search?orgdetails=orgName,email&framework=${frameworkId}`,
+        cache: this.searchApi.cache ? this.searchApi.cache : 'default',
+        method: this.searchApi.method,
+        body: this.searchApi.body,
+        headers: this.searchApi.headers,
       })
       .then((res) => {
         this.content = res.result.content;
@@ -105,10 +105,10 @@ export class WrapperComponent implements OnInit, OnChanges {
       });
     this.apiService
       .fetchData({
-        url: `${this.hostname}/api/framework/v1/read/${frameworkID}?categories=board,gradeLevel,medium,class,subject`,
-        cache: this.termsAPI.cache ? this.termsAPI.cache : 'default',
-        method: this.termsAPI.method,
-        headers: this.termsAPI.headers,
+        url: `${this.hostname}/api/framework/v1/read/${frameworkId}?categories=board,gradeLevel,medium,class,subject`,
+        cache: this.termsApi.cache ? this.termsApi.cache : 'default',
+        method: this.termsApi.method,
+        headers: this.termsApi.headers,
       })
       .then((res) => {
         this.masterFields = this.wrapperService.termsFetch(
@@ -135,7 +135,7 @@ export class WrapperComponent implements OnInit, OnChanges {
   }
 
   dependentFieldsRender() {
-    const frameworkID =
+    const frameworkId =
       this.framework === ''
         ? 'ekstep_ncert_k-12'
         : this.wrapperService.getFrameworkID(
@@ -144,10 +144,10 @@ export class WrapperComponent implements OnInit, OnChanges {
           );
     this.apiService
       .fetchData({
-        url: `${this.hostname}/api/framework/v1/read/${frameworkID}?categories=board,gradeLevel,medium,class,subject`,
-        cache: this.termsAPI.cache ? this.termsAPI.cache : 'default',
-        method: this.termsAPI.method,
-        headers: this.termsAPI.headers,
+        url: `${this.hostname}/api/framework/v1/read/${frameworkId}?categories=board,gradeLevel,medium,class,subject`,
+        cache: this.termsApi.cache ? this.termsApi.cache : 'default',
+        method: this.termsApi.method,
+        headers: this.termsApi.headers,
       })
       .then((res) => {
         const data = this.wrapperService.dependentTermsFetch(
@@ -166,10 +166,10 @@ export class WrapperComponent implements OnInit, OnChanges {
         if (flag) {
           this.apiService
             .fetchData({
-              url: `${this.hostname}/api/framework/v1/read/${frameworkID}?categories=board,gradeLevel,medium,class,subject`,
-              cache: this.termsAPI.cache ? this.termsAPI.cache : 'default',
-              method: this.termsAPI.method,
-              headers: this.termsAPI.headers,
+              url: `${this.hostname}/api/framework/v1/read/${frameworkId}?categories=board,gradeLevel,medium,class,subject`,
+              cache: this.termsApi.cache ? this.termsApi.cache : 'default',
+              method: this.termsApi.method,
+              headers: this.termsApi.headers,
             })
             .then((res) => {
               this.masterFields = this.wrapperService.termsFetch(
@@ -189,7 +189,6 @@ export class WrapperComponent implements OnInit, OnChanges {
             });
         } else {
           this.masterFields = this.dependentTermsData;
-          console.log('Terms', this.masterFields);
         }
       })
       .catch((err) => {
@@ -221,13 +220,13 @@ export class WrapperComponent implements OnInit, OnChanges {
         ? this.allFiltersArray
         : this.filtersArray,
       this.filterConfig,
-      this.searchAPI.body ? this.searchAPI.body : ''
+      this.searchApi.body ? this.searchApi.body : ''
     );
   }
 
   filtersContentRender() {
     this.masterBodyContentChange();
-    const frameworkID =
+    const frameworkId =
       this.framework === ''
         ? 'ekstep_ncert_k-12'
         : this.wrapperService.getFrameworkID(
@@ -239,12 +238,12 @@ export class WrapperComponent implements OnInit, OnChanges {
         url: `${
           this.hostname
         }/api/content/v1/search?orgdetails=orgName,email&framework=${
-          this.framework === '' ? 'ekstep_ncert_k-12' : frameworkID
+          this.framework === '' ? 'ekstep_ncert_k-12' : frameworkId
         }`,
         cache: 'default',
-        method: this.searchAPI.method,
+        method: this.searchApi.method,
         body: this.filterBodySet,
-        headers: this.searchAPI.headers,
+        headers: this.searchApi.headers,
       })
       .then((res) => {
         if (res.result.content !== undefined) {
@@ -263,35 +262,35 @@ export class WrapperComponent implements OnInit, OnChanges {
   }
 
   filterDataRender() {
-    const ReturnData = this.wrapperService.filterDataExtract({
+    const returnData = this.wrapperService.filterDataExtract({
       content: this.content,
       filterConfig: this.apiSettedFilterConfig,
-      TermsObject: this.addtionalFilterConfig,
+      termsObject: this.addtionalFilterConfig,
     });
-    this.filterOptionsData = ReturnData.OptionValueArray;
+    this.filterOptionsData = returnData.OptionValueArray;
 
-    this.filterOptionNameArray = ReturnData.OptionNameArray;
+    this.filterOptionNameArray = returnData.OptionNameArray;
     this.allOptions.map((item: any) => {
       if (this.filterOptionNameArray.includes(item.name)) {
         const idx = this.filterOptionNameArray.indexOf(item.name);
         item.terms = this.filterOptionsData[idx].terms;
       }
     });
-    return ReturnData;
+    return returnData;
   }
-  AddtionalContent: any;
+  addtionalContent: any;
   renderContentAddtionalFilter() {
-    this.AddtionalContent = this.wrapperService.renderContentFunction({
+    this.addtionalContent = this.wrapperService.renderContentFunction({
       content: this.content,
       filtersSelected: this.filtersArray,
       filterConfig: this.apiSettedFilterConfig,
     });
   }
 
-  additionalOptionValueReturn(Key: string) {
+  additionalOptionValueReturn(key: string) {
     let valueArray: Array<string> = [];
     this.filterOptionsData.map((item: any) => {
-      if (Key.toLowerCase() === item.name.toLowerCase()) {
+      if (key.toLowerCase() === item.name.toLowerCase()) {
         valueArray = item.value;
       }
     });
@@ -301,7 +300,7 @@ export class WrapperComponent implements OnInit, OnChanges {
   cardsFieldCheck(field: string, item: any) {
     if (field === 'tags' && this.cardsFieldConfig.hasOwnProperty(field)) {
       const arr: Array<string> = [];
-      const tagsArray = this.cardsFieldConfig[field].TagsFieldArray;
+      const tagsArray = this.cardsFieldConfig[field].tagsFieldArray;
       tagsArray.map((key: any) => {
         arr.push(item[key]);
       });
@@ -340,10 +339,10 @@ export class WrapperComponent implements OnInit, OnChanges {
     this.renderContentAddtionalFilter();
   }
 
-  isAddtionalFilter(Name: string) {
+  isAddtionalFilter(name: string) {
     let flag = false;
-    this.addtionalFilterConfig.map((item) => {
-      if (item.name.toLowerCase() === Name.toLowerCase()) {
+    this.addtionalFilterConfig?.map((item: any) => {
+      if (item.name.toLowerCase() === name.toLowerCase()) {
         flag = true;
       }
     });

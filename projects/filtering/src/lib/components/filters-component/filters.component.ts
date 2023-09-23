@@ -5,7 +5,6 @@ import {
   Output,
   EventEmitter,
   OnChanges,
-  SimpleChanges,
 } from '@angular/core';
 import {
   filterStyle,
@@ -21,44 +20,44 @@ import { FiltersService } from '../../services/filters.service';
 export class FiltersComponent implements OnInit, OnChanges {
   Show: string = '';
   @Input() Data: string = '';
-  @Output() FiltersArrayEvent = new EventEmitter<
+  @Output() filtersArrayEvent = new EventEmitter<
     Array<filtersArraySelectedOptionObject>
   >();
-  @Output() AddFilterNumberEvent = new EventEmitter<Array<number>>();
-  FiltersArray: Array<filtersArraySelectedOptionObject> = [];
-  Selected: Array<filtersArraySelectedOptionObject> = [];
-  AddFilterNumber: Array<number> = [0];
+  @Output() addFilterNumberEvent = new EventEmitter<Array<number>>();
+  filtersArray: Array<filtersArraySelectedOptionObject> = [];
+  selected: Array<filtersArraySelectedOptionObject> = [];
+  addFilterNumber: Array<number> = [0];
   @Input() styles: filterStyle = {};
-  @Input() Name: string = '';
-  @Input() OptionValue: Array<string> = [];
+  @Input() name: string = '';
+  @Input() optionValue: Array<string> = [];
   @Input() filterConfig: Array<any> = [];
   @Input() addtionalFilterConfig: Array<any> = [];
-  @Input() AllFiltersArray: Array<any> = [];
+  @Input() allFiltersArray: Array<any> = [];
 
-  OptionOb: Array<{ name: string; Options: boolean }> = [];
-  Check: any = [];
+  optionOb: Array<{ name: string; options: boolean }> = [];
+  check: any = [];
 
   constructor(private filterService: FiltersService) {}
 
   getOptionStatus(a: string) {
-    const idx = this.OptionOb.findIndex(
+    const idx = this.optionOb.findIndex(
       (obj) => obj.name.toLowerCase() === a.toLowerCase()
     );
-    return this.OptionOb[idx]?.Options;
+    return this.optionOb[idx]?.options;
   }
-  OptionsShow(a: string) {
-    const index = this.OptionOb.findIndex(
+  optionsShow(a: string) {
+    const index = this.optionOb.findIndex(
       (obj) => obj.name.toLowerCase() === a.toLowerCase()
     );
     if (index !== -1) {
-      this.OptionOb[index].Options = !this.OptionOb[index].Options;
+      this.optionOb[index].options = !this.optionOb[index].options;
     }
-    return this.OptionOb[index].Options ? this.OptionOb[index].Options : false;
+    return this.optionOb[index].options ? this.optionOb[index].options : false;
   }
 
   isSelected(optionName: string) {
     let flag = true;
-    this.AllFiltersArray.map((item) => {
+    this.allFiltersArray.map((item) => {
       if (
         item.name.toLowerCase() === optionName.toLowerCase() &&
         item.value.length !== 0
@@ -69,9 +68,9 @@ export class FiltersComponent implements OnInit, OnChanges {
     return flag;
   }
 
-  CheckIfOptionPresent(optionName: string, option: string) {
+  checkIfOptionPresent(optionName: string, option: string) {
     let flag = false;
-    this.FiltersArray.map((item) => {
+    this.filtersArray.map((item) => {
       if (
         item.name.toLowerCase() === optionName.toLowerCase() &&
         item.value.includes(option)
@@ -82,13 +81,13 @@ export class FiltersComponent implements OnInit, OnChanges {
     return flag;
   }
 
-  OptionShowHide(filterConfig: any) {
-    let arr: Array<{ name: string; Options: boolean }> = [];
+  optionShowHide(filterConfig: any) {
+    let arr: Array<{ name: string; options: boolean }> = [];
     if (filterConfig.length !== 0) {
       filterConfig.map((item: any) => {
         arr.push({
           name: item.name,
-          Options: false,
+          options: false,
         });
       });
     }
@@ -97,51 +96,51 @@ export class FiltersComponent implements OnInit, OnChanges {
         if (item.isEnabled)
           arr.push({
             name: item.name,
-            Options: false,
+            options: false,
           });
       });
     }
-    this.OptionOb = arr;
+    this.optionOb = arr;
   }
-  addFilter(OptionName: string, OptionValue: string) {
-    if (this.filterService.optionNameisPresent(OptionName, this.FiltersArray)) {
-      this.FiltersArray?.map((item) => {
+  addFilter(optionName: string, optionValue: string) {
+    if (this.filterService.optionNameIsPresent(optionName, this.filtersArray)) {
+      this.filtersArray?.map((item) => {
         if (
           this.filterService.itemPresentOptionName(
-            OptionName,
+            optionName,
             item,
-            this.FiltersArray
+            this.filtersArray
           )
         ) {
-          if (item.value.includes(OptionValue)) {
+          if (item.value.includes(optionValue)) {
             const newarr = item.value;
-            const indexofOption = item.value.indexOf(OptionValue);
+            const indexofOption = item.value.indexOf(optionValue);
             newarr.splice(indexofOption, 1);
             item.value = newarr;
             return;
           }
-          if (!item.value.includes(OptionValue)) {
+          if (!item.value.includes(optionValue)) {
             let oldArr = item.value;
-            oldArr.push(OptionValue);
+            oldArr.push(optionValue);
             item.value = oldArr;
           }
         }
       });
     } else {
-      this.FiltersArray = [
-        ...this.FiltersArray,
-        { name: OptionName, value: [OptionValue] },
+      this.filtersArray = [
+        ...this.filtersArray,
+        { name: optionName, value: [optionValue] },
       ];
     }
-    const lastIdx = this.AddFilterNumber.length;
-    this.AddFilterNumber.push(this.AddFilterNumber[lastIdx - 1] + 1);
-    this.AddFilterNumberEvent.emit(this.AddFilterNumber);
-    this.Check = [...this.Check, ...this.FiltersArray];
-    this.FiltersArrayEvent.emit(this.FiltersArray);
+    const lastIdx = this.addFilterNumber.length;
+    this.addFilterNumber.push(this.addFilterNumber[lastIdx - 1] + 1);
+    this.addFilterNumberEvent.emit(this.addFilterNumber);
+    this.check = [...this.check, ...this.filtersArray];
+    this.filtersArrayEvent.emit(this.filtersArray);
   }
 
   ngOnInit(): void {
-    this.OptionShowHide(this.filterConfig);
+    this.optionShowHide(this.filterConfig);
   }
-  ngOnChanges(changes: SimpleChanges): void {}
+  ngOnChanges(): void {}
 }

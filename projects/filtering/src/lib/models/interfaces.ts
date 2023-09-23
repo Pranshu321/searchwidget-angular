@@ -1,20 +1,20 @@
 export interface styleProps {
-  WrapperStyle?: {
-    Container?: {};
-    Sidebar?: {};
-    FiltersDiv?: {};
-    Filter?: {};
-    Button?: {};
-    ListDiv?: {};
+  wrapperStyle?: {
+    container?: {};
+    sidebar?: {};
+    filtersDiv?: {};
+    filter?: {};
+    button?: {};
+    listDiv?: {};
   };
 
   filterStyle?: {
     container?: {};
-    OptionNameStyle?: {};
-    OptionStyle?: {};
-    OptionDivStyle?: {};
+    optionNameStyle?: {};
+    optionStyle?: {};
+    optionDivStyle?: {};
     select?: {};
-    OptionsItem?: {};
+    optionsItem?: {};
   };
 
   cardStyle?: {
@@ -25,10 +25,10 @@ export interface styleProps {
     imageDiv?: {};
     image?: {};
     tagsDiv?: {};
-    LowerDiv?: {};
-    LowerItem?: {};
-    LowerDT?: {};
-    LowerDD?: {};
+    lowerDiv?: {};
+    lowerItem?: {};
+    lowerDt?: {};
+    lowerDd?: {};
     tag?: {};
   };
 }
@@ -53,11 +53,11 @@ export interface inputAPIProps {
 }
 
 export interface allInputApiProps {
-  formAPI: inputAPIProps;
-  searchAPI: inputAPIProps;
-  termsAPI: inputAPIProps;
-  getDefaultChannelAPI: inputAPIProps;
-  getChannelAPI: inputAPIProps;
+  formApi: inputAPIProps;
+  searchApi: inputAPIProps;
+  termsApi: inputAPIProps;
+  getDefaultChannelApi: inputAPIProps;
+  getChannelApi: inputAPIProps;
 }
 
 export interface cardStyle {
@@ -68,20 +68,20 @@ export interface cardStyle {
   imageDiv?: {};
   image?: {};
   tagsDiv?: {};
-  LowerDiv?: {};
-  LowerItem?: {};
-  LowerDT?: {};
-  LowerDD?: {};
+  lowerDiv?: {};
+  lowerItem?: {};
+  lowerDt?: {};
+  lowerDd?: {};
   tag?: {};
 }
 
 export interface filterStyle {
   container?: {};
-  OptionNameStyle?: {};
-  OptionStyle?: {};
-  OptionDivStyle?: {};
+  optionNameStyle?: {};
+  optionStyle?: {};
+  optionDivStyle?: {};
   select?: {};
-  OptionsItem?: {};
+  optionsItem?: {};
 }
 
 export interface filterConfigProps {
@@ -112,88 +112,10 @@ export type cardFieldsObject = {
     isEnabled?: boolean;
   };
   tags?: {
-    TagsFieldArray: Array<string>;
+    tagsFieldArray: Array<string>;
     isEnabled?: boolean;
   };
 };
-
-export interface iCourse {
-  ownershipType: string[];
-  copyright: string;
-  board?: string;
-  channel: string;
-  downloadUrl: string;
-  organisation: string[];
-  language: string[];
-  mimeType: string;
-  variants: any;
-  leafNodes: string[];
-  objectType: string;
-  appIcon: string;
-  children: string[];
-  appId: string;
-  contentEncoding: string;
-  lockKey: string;
-  totalCompressedSize: number;
-  mimeTypesCount: string;
-  contentType: string;
-  contentCredits: string;
-  identifier: string;
-  lastUpdatedBy: string;
-  audience: string[];
-  visibility: string;
-  toc_url: string;
-  contentTypesCount: string;
-  consumerId: string;
-  childNodes: string[];
-  mediaType: string;
-  osId: string;
-  graph_id: string;
-  nodeType: string;
-  lastPublishedBy: string;
-  version: number;
-  license: string;
-  prevState: string;
-  lastPublishedOn: string;
-  size: number;
-  IL_FUNC_OBJECT_TYPE: string;
-  name: string;
-  topic: string[];
-  c_diksha_load_open_batch_count: number;
-  status: string;
-  code: string;
-  purpose: string;
-  prevStatus: string;
-  description: string;
-  medium: string;
-  idealScreenSize: string;
-  createdOn: string;
-  reservedDialcodes: string;
-  copyrightYear: number;
-  contentDisposition: string;
-  lastUpdatedOn: string;
-  SYS_INTERNAL_LAST_UPDATED_ON: string;
-  dialcodeRequired: string;
-  creator: string;
-  createdFor: string[];
-  lastStatusChangedOn: string;
-  IL_SYS_NODE_TYPE: string;
-  os: string[];
-  pkgVersion: number;
-  versionKey: string;
-  idealScreenDensity: string;
-  framework: string;
-  depth: number;
-  s3Key: string;
-  dialcodes: string[];
-  lastSubmittedOn: string;
-  createdBy: string;
-  compatibilityLevel: number;
-  leafNodesCount: number;
-  IL_UNIQUE_ID: string;
-  resourceType: string;
-  node_id: number;
-}
 
 export interface iCardClick {
   event: MouseEvent;
@@ -202,7 +124,7 @@ export interface iCardClick {
 
 export interface wrapperProps {
   hostname: string;
-  DefaultChannel: {
+  defaultChannel: {
     url: string;
     method: string;
     cache:
@@ -214,7 +136,7 @@ export interface wrapperProps {
       | 'no-cache';
     header: object;
   };
-  GetChannel: {
+  getChannel: {
     method: string;
     cache:
       | 'default'
@@ -225,20 +147,20 @@ export interface wrapperProps {
       | 'no-cache';
     header: object;
   };
-  searchAPI: {
+  searchApi: {
     url: string;
     headers: object;
     method: string;
     body: string;
   };
-  TermsRead: {
+  termsRead: {
     url: string;
     headers: object;
     method: string;
     body: string;
   };
-  Formurl: string;
-  CardFieldsProps: cardFieldsObject;
+  formUrl: string;
+  cardFieldsProps: cardFieldsObject;
   cache:
     | 'default'
     | 'no-store'
@@ -252,14 +174,14 @@ export interface wrapperProps {
 }
 
 export interface apiContextProps {
-  Formurl: string;
-  searchAPI: {
+  formUrl: string;
+  searchApi: {
     url: string;
     method: string;
     headers?: object;
     body: string;
   };
-  CardFieldsProps: cardFieldsObject;
+  cardFieldsProps: cardFieldsObject;
   hostname: string;
   cache:
     | 'default'
@@ -271,29 +193,29 @@ export interface apiContextProps {
   styles?: styleProps;
   filterConfig: Array<filterConfigProps>;
   addtionalFilterConfig?: Array<filterConfigProps> | undefined;
-  termsAPI: {
+  termsApi: {
     method: string;
     headers?: object;
     body?: string;
   };
-  Frameworks: Array<string>;
+  frameworks: Array<string>;
 }
 
 export interface singleSelectProps {
   styles?: {
     container?: {};
-    OptionNameStyle?: {};
-    OptionStyle?: {};
-    OptionDivStyle?: {};
+    optionNameStyle?: {};
+    optionStyle?: {};
+    optionDivStyle?: {};
     select?: {};
-    OptionsItem?: {};
+    optionsItem?: {};
   };
   options: Array<string>;
   optionName: string;
-  Framework: string;
+  framework: string;
   setFramework: Function;
-  Reset?: boolean;
-  FiltersArray: Array<filtersArraySelectedOptionObject>;
+  reset?: boolean;
+  filtersArray: Array<filtersArraySelectedOptionObject>;
   setFiltersArray: (...args: any[]) => any;
 }
 
@@ -305,20 +227,18 @@ export interface filtersArraySelectedOptionObject {
 export interface selectProps {
   styles?: {
     container?: {};
-    OptionNameStyle?: {};
-    OptionStyle?: {};
-    OptionDivStyle?: {};
+    optionNameStyle?: {};
+    optionStyle?: {};
+    optionDivStyle?: {};
     select?: {};
-    OptionsItem?: {};
+    optionsItem?: {};
   };
-  FiltersArray: Array<filtersArraySelectedOptionObject>;
+  filtersArray: Array<filtersArraySelectedOptionObject>;
   setFiltersArray: (...args: any[]) => any;
   options: Array<string>;
   optionName: string;
   filters?: Array<string>;
-  Reset?: boolean;
-  ArrayNumber: Array<number>;
-  setArrayNumber: (...args: any[]) => any;
+  reset?: boolean;
 }
 
 export interface filterProps {
@@ -340,10 +260,10 @@ export interface cardProps {
     imageDiv?: {};
     image?: {};
     tagsDiv?: {};
-    LowerDiv?: {};
-    LowerItem?: {};
-    LowerDT?: {};
-    LowerDD?: {};
+    lowerDiv?: {};
+    lowerItem?: {};
+    lowerDt?: {};
+    lowerDd?: {};
     tag?: {};
   };
 }

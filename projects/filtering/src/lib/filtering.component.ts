@@ -40,35 +40,35 @@ export class FilteringComponent implements OnInit {
   constructor(private apiService: apiService) {}
   @Input() @required hostname: string = '';
   @Input() @required frameworkFieldName: string = '';
-  @Input() @required Configs: configs = {
+  @Input() @required configObject: configs = {
     filterConfig: [],
     addtionalFilterConfig: [],
   };
   @Input() @required cardsFieldsObject: cardFieldsObject = {};
   @Input() @required API: allInputApiProps = {
-    formAPI: defaultAPISet,
-    searchAPI: defaultAPISet,
-    termsAPI: defaultAPISet,
-    getDefaultChannelAPI: defaultAPISet,
-    getChannelAPI: defaultAPISet,
+    formApi: defaultAPISet,
+    searchApi: defaultAPISet,
+    termsApi: defaultAPISet,
+    getDefaultChannelApi: defaultAPISet,
+    getChannelApi: defaultAPISet,
   };
 
   @Input() styles: styleProps = {};
 
-  Frameworks: any;
-  private defaultChannelID: string = '';
+  frameworks: any;
+  private defaultChannelId: string = '';
   ngOnInit(): void {
     this.apiService
       .fetchData({
-        url: this.API.getDefaultChannelAPI.url,
-        method: this.API.getDefaultChannelAPI.method,
-        headers: this.API.getDefaultChannelAPI.headers,
-        cache: this.API.getDefaultChannelAPI.cache
-          ? this.API.getDefaultChannelAPI.cache
+        url: this.API.getDefaultChannelApi.url,
+        method: this.API.getDefaultChannelApi.method,
+        headers: this.API.getDefaultChannelApi.headers,
+        cache: this.API.getDefaultChannelApi.cache
+          ? this.API.getDefaultChannelApi.cache
           : 'default',
       })
       .then((res) => {
-        this.defaultChannelID = res.result.response.value;
+        this.defaultChannelId = res.result.response.value;
         this.getChannelFrameworks();
       })
       .catch((err) => {
@@ -78,15 +78,15 @@ export class FilteringComponent implements OnInit {
   getChannelFrameworks() {
     this.apiService
       .fetchData({
-        url: `${this.hostname}/api/channel/v1/read/${this.defaultChannelID}`,
-        method: this.API.getChannelAPI.method,
-        headers: this.API.getChannelAPI.headers,
-        cache: this.API.getDefaultChannelAPI.cache
-          ? this.API.getDefaultChannelAPI.cache
+        url: `${this.hostname}/api/channel/v1/read/${this.defaultChannelId}`,
+        method: this.API.getChannelApi.method,
+        headers: this.API.getChannelApi.headers,
+        cache: this.API.getDefaultChannelApi.cache
+          ? this.API.getDefaultChannelApi.cache
           : 'default',
       })
       .then((res) => {
-        this.Frameworks = res.result.channel.frameworks;
+        this.frameworks = res.result.channel.frameworks;
       })
       .catch((err) => {
         console.log(err);
