@@ -7,8 +7,8 @@ import {
   OnChanges,
 } from '@angular/core';
 import {
-  filterStyle,
-  filtersArraySelectedOptionObject,
+  FilterStyle,
+  FiltersArraySelectedOptionObject,
 } from '../../models/interfaces';
 import { FiltersService } from '../../services/filters.service';
 
@@ -19,15 +19,17 @@ import { FiltersService } from '../../services/filters.service';
 })
 export class FiltersComponent implements OnInit, OnChanges {
   Show: string = '';
-  @Input() Data: string = '';
+  @Input() data: string = '';
   @Output() filtersArrayEvent = new EventEmitter<
-    Array<filtersArraySelectedOptionObject>
+    Array<FiltersArraySelectedOptionObject>
   >();
   @Output() addFilterNumberEvent = new EventEmitter<Array<number>>();
-  filtersArray: Array<filtersArraySelectedOptionObject> = [];
-  selected: Array<filtersArraySelectedOptionObject> = [];
+
+  filtersArray: Array<FiltersArraySelectedOptionObject> = [];
+  selected: Array<FiltersArraySelectedOptionObject> = [];
   addFilterNumber: Array<number> = [0];
-  @Input() styles: filterStyle = {};
+
+  @Input() styles: FilterStyle = {};
   @Input() name: string = '';
   @Input() optionValue: Array<string> = [];
   @Input() filterConfig: Array<any> = [];

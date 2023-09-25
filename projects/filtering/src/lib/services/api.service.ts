@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { apiProps } from '../models/serviceFunctionInterfaces';
+import { ApiProps } from '../models/serviceFunctionInterfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +12,7 @@ export class apiService {
     url,
     method,
     cache,
-  }: apiProps): Promise<any> => {
+  }: ApiProps): Promise<any> => {
     const response = await fetch(url, {
       headers: headers,
       body: body,

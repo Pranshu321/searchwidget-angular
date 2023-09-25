@@ -1,10 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import {
-  cardFieldsObject,
-  configs,
-  styleProps,
-  allInputApiProps,
-  inputAPIProps,
+  CardFieldsObject,
+  Configs,
+  StyleProps,
+  AllInputApiProps,
+  InputApiProps,
 } from './models/interfaces';
 import { apiService } from './services/api.service';
 
@@ -24,7 +24,7 @@ export function required(target: object, propertyKey: string) {
   });
 }
 
-const defaultAPISet: inputAPIProps = {
+const defaultAPISet: InputApiProps = {
   url: '',
   headers: {},
   method: '',
@@ -40,12 +40,12 @@ export class FilteringComponent implements OnInit {
   constructor(private apiService: apiService) {}
   @Input() @required hostname: string = '';
   @Input() @required frameworkFieldName: string = '';
-  @Input() @required configObject: configs = {
+  @Input() @required configObject: Configs = {
     filterConfig: [],
     addtionalFilterConfig: [],
   };
-  @Input() @required cardsFieldsObject: cardFieldsObject = {};
-  @Input() @required API: allInputApiProps = {
+  @Input() @required cardsFieldsObject: CardFieldsObject = {};
+  @Input() @required API: AllInputApiProps = {
     formApi: defaultAPISet,
     searchApi: defaultAPISet,
     termsApi: defaultAPISet,
@@ -53,7 +53,7 @@ export class FilteringComponent implements OnInit {
     getChannelApi: defaultAPISet,
   };
 
-  @Input() styles: styleProps = {};
+  @Input() styles: StyleProps = {};
 
   frameworks: any;
   private defaultChannelId: string = '';

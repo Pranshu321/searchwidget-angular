@@ -1,5 +1,5 @@
 import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
-import { cardStyle } from '../../models/interfaces';
+import { CardStyle } from '../../models/interfaces';
 
 @Component({
   selector: 'lib-cards-component',
@@ -13,7 +13,7 @@ export class CardsComponent implements OnInit {
   @Input() image: string = '';
   @Input() subject: string = '';
   @Input() publisher: string = '';
-  @Input() styles: cardStyle = {};
+  @Input() styles: CardStyle = {};
 
   constructor() {}
 

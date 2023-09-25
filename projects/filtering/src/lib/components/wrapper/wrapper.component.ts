@@ -5,7 +5,7 @@ import {
   OnChanges,
   SimpleChanges,
 } from '@angular/core';
-import { styleProps, inputAPIProps } from '../../models/interfaces';
+import { StyleProps, InputApiProps } from '../../models/interfaces';
 import { WrapperService } from '../../services/wrapper.service';
 import { apiService } from '../../services/api.service';
 
@@ -36,8 +36,8 @@ export class WrapperComponent implements OnInit, OnChanges {
   @Input() frameworkFieldName: string = '';
   @Input() FrameworksArray: Array<any> = [];
   @Input() hostname: string = '';
-  @Input() styles: styleProps = {};
-  @Input() formApi: inputAPIProps = {
+  @Input() styles: StyleProps = {};
+  @Input() formApi: InputApiProps = {
     url: '',
     headers: {},
     method: '',
@@ -45,7 +45,7 @@ export class WrapperComponent implements OnInit, OnChanges {
     cache: 'default',
   };
   @Input() cardsFieldConfig: { [key: string]: any } = {};
-  @Input() searchApi: inputAPIProps = {
+  @Input() searchApi: InputApiProps = {
     url: '',
     headers: {},
     method: '',
@@ -53,7 +53,7 @@ export class WrapperComponent implements OnInit, OnChanges {
     cache: 'default',
   };
   filterBodySet: any = this.searchApi.body;
-  @Input() termsApi: inputAPIProps = {
+  @Input() termsApi: InputApiProps = {
     url: '',
     headers: {},
     method: '',
@@ -267,9 +267,9 @@ export class WrapperComponent implements OnInit, OnChanges {
       filterConfig: this.apiSettedFilterConfig,
       termsObject: this.addtionalFilterConfig,
     });
-    this.filterOptionsData = returnData.OptionValueArray;
+    this.filterOptionsData = returnData.optionValueArray;
 
-    this.filterOptionNameArray = returnData.OptionNameArray;
+    this.filterOptionNameArray = returnData.optionNameArray;
     this.allOptions.map((item: any) => {
       if (this.filterOptionNameArray.includes(item.name)) {
         const idx = this.filterOptionNameArray.indexOf(item.name);

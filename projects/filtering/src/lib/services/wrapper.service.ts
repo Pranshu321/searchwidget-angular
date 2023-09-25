@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import {
-  serviceFunctionCardProps,
-  filterDataExtractProps,
-  renderContentProps,
-  updateConfigProps,
+  ServiceFunctionCardProps,
+  FilterDataExtractProps,
+  RenderContentProps,
+  UpdateConfigProps,
 } from '../models/serviceFunctionInterfaces';
 
 @Injectable({
@@ -15,35 +15,35 @@ export class WrapperService {
     apiData,
     addtionalFilterConfig,
     filterConfig,
-  }: updateConfigProps) {
-    let TempData = apiData;
+  }: UpdateConfigProps) {
+    let tempData = apiData;
     if (filterConfig?.length !== 0) {
       filterConfig?.map((item) => {
-        const ItemName = item.name;
-        const ItemField = item.field;
-        const ItemIsEnabled =
+        const itemName = item.name;
+        const itemField = item.field;
+        const itemIsEnabled =
           item.isEnabled !== undefined ? item.isEnabled : true;
-        TempData[0].data.PrimaryFields[ItemName] = {
-          field: ItemField,
-          isEnabled: ItemIsEnabled,
+        tempData[0].data.PrimaryFields[itemName] = {
+          field: itemField,
+          isEnabled: itemIsEnabled,
         };
       });
     }
     if (addtionalFilterConfig?.length !== 0) {
       addtionalFilterConfig?.map((item: any) => {
-        const ItemName = item.name;
-        const ItemField = item.field;
-        const ItemIsEnabled =
+        const itemName = item.name;
+        const itemField = item.field;
+        const itemIsEnabled =
           item.isEnabled !== undefined ? item.isEnabled : true;
-        TempData[0].data.additionalFields[ItemName] = {
-          displayName: ItemName,
-          field: ItemField,
-          isEnabled: ItemIsEnabled,
+        tempData[0].data.additionalFields[itemName] = {
+          displayName: itemName,
+          field: itemField,
+          isEnabled: itemIsEnabled,
         };
       });
     }
-    // setFilterConfig(TempData);
-    return TempData;
+    // setFilterConfig(tempData);
+    return tempData;
   }
 
   isEnabled(filterConfig: any, itemName: string) {
@@ -61,24 +61,24 @@ export class WrapperService {
     content,
     filterConfig,
     termsObject,
-  }: filterDataExtractProps) {
-    const AddtionalFieldsObject = filterConfig[0]?.data.additionalFields;
+  }: FilterDataExtractProps) {
+    const addtionalFieldsObject = filterConfig[0]?.data.additionalFields;
 
     const FilterConfigObject = {
-      ...AddtionalFieldsObject,
+      ...addtionalFieldsObject,
     };
-    let OptionNameArray: any = [];
-    let OptionValueArray: any = [];
+    let optionNameArray: any = [];
+    let optionValueArray: any = [];
     if (filterConfig.length !== 0) {
       const AddtionalKeys = Object.keys(filterConfig[0]?.data.additionalFields);
-      OptionNameArray = [...AddtionalKeys];
-      OptionNameArray?.map((item: any) => {
+      optionNameArray = [...AddtionalKeys];
+      optionNameArray?.map((item: any) => {
         if (this.isEnabled(FilterConfigObject, item)) {
           let temp: any;
           if (termsObject.hasOwnProperty(item)) {
             temp = termsObject[item];
           } else {
-            let fieldName = AddtionalFieldsObject[item]?.field;
+            let fieldName = addtionalFieldsObject[item]?.field;
 
             temp = new Set('');
 
@@ -100,7 +100,7 @@ export class WrapperService {
             console.log('temp', temp.sort());
 
             if (temp.length !== 0)
-              OptionValueArray.push({
+              optionValueArray.push({
                 name: item,
                 terms: temp.sort(),
               });
@@ -108,7 +108,7 @@ export class WrapperService {
             const val = Array.from(temp);
             val.splice(val.length - 1, 1);
             if (val.length !== 0)
-              OptionValueArray.push({
+              optionValueArray.push({
                 name: item,
                 terms: val.sort(),
               });
@@ -117,8 +117,8 @@ export class WrapperService {
       });
     }
     return {
-      OptionNameArray,
-      OptionValueArray,
+      optionNameArray,
+      optionValueArray,
     };
   }
 
@@ -126,10 +126,10 @@ export class WrapperService {
     content,
     filtersSelected,
     filterConfig,
-  }: renderContentProps) {
-    const AddtionalFieldsObject = filterConfig[0]?.data.additionalFields;
+  }: RenderContentProps) {
+    const addtionalFieldsObject = filterConfig[0]?.data.additionalFields;
     const FilterConfigObject = {
-      ...AddtionalFieldsObject,
+      ...addtionalFieldsObject,
     };
     const keys = Object.keys(FilterConfigObject);
     let contentArray: Array<any> = [];
@@ -163,18 +163,18 @@ export class WrapperService {
     }
   }
 
-  CardFieldsRender(item: any, cardFieldsObject: any) {
-    const fieldKeys = Object.keys(cardFieldsObject);
-    let objectReturn: serviceFunctionCardProps = {};
+  cardFieldsRender(item: any, CardFieldsObject: any) {
+    const fieldKeys = Object.keys(CardFieldsObject);
+    let objectReturn: ServiceFunctionCardProps = {};
     let tagsArray: Array<string> = [];
     fieldKeys.map((Field: string) => {
-      if (item.hasOwnProperty(cardFieldsObject[Field].field)) {
-        objectReturn[Field as keyof serviceFunctionCardProps] = this.isArray(
-          item[cardFieldsObject[Field].field]
+      if (item.hasOwnProperty(CardFieldsObject[Field].field)) {
+        objectReturn[Field as keyof ServiceFunctionCardProps] = this.isArray(
+          item[CardFieldsObject[Field].field]
         );
       }
       if (Field === 'tags') {
-        const TagsFieldsArray = cardFieldsObject[Field].tagsFieldArray;
+        const TagsFieldsArray = CardFieldsObject[Field].tagsFieldArray;
         TagsFieldsArray.map((tagField: string) => {
           if (item.hasOwnProperty(tagField))
             tagsArray.push(this.isArray(item[tagField]));

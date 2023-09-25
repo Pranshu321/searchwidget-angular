@@ -1,4 +1,4 @@
-export interface styleProps {
+export interface StyleProps {
   wrapperStyle?: {
     container?: {};
     sidebar?: {};
@@ -33,12 +33,12 @@ export interface styleProps {
   };
 }
 
-export interface configs {
-  filterConfig: Array<filterConfigProps>;
-  addtionalFilterConfig?: Array<filterConfigProps>;
+export interface Configs {
+  filterConfig: Array<FilterConfigProps>;
+  addtionalFilterConfig?: Array<FilterConfigProps>;
 }
 
-export interface inputAPIProps {
+export interface InputApiProps {
   url: string;
   headers?: object;
   method: string;
@@ -52,15 +52,15 @@ export interface inputAPIProps {
     | 'no-cache';
 }
 
-export interface allInputApiProps {
-  formApi: inputAPIProps;
-  searchApi: inputAPIProps;
-  termsApi: inputAPIProps;
-  getDefaultChannelApi: inputAPIProps;
-  getChannelApi: inputAPIProps;
+export interface AllInputApiProps {
+  formApi: InputApiProps;
+  searchApi: InputApiProps;
+  termsApi: InputApiProps;
+  getDefaultChannelApi: InputApiProps;
+  getChannelApi: InputApiProps;
 }
 
-export interface cardStyle {
+export interface CardStyle {
   container?: {};
   headingDiv?: {};
   heading?: {};
@@ -75,7 +75,7 @@ export interface cardStyle {
   tag?: {};
 }
 
-export interface filterStyle {
+export interface FilterStyle {
   container?: {};
   optionNameStyle?: {};
   optionStyle?: {};
@@ -84,13 +84,13 @@ export interface filterStyle {
   optionsItem?: {};
 }
 
-export interface filterConfigProps {
+export interface FilterConfigProps {
   name: string;
   field: string;
   isEnabled?: boolean;
 }
 
-export type cardFieldsObject = {
+export type CardFieldsObject = {
   name?: {
     field: string;
     isEnabled?: boolean;
@@ -117,12 +117,7 @@ export type cardFieldsObject = {
   };
 };
 
-export interface iCardClick {
-  event: MouseEvent;
-  data: any;
-}
-
-export interface wrapperProps {
+export interface WrapperProps {
   hostname: string;
   defaultChannel: {
     url: string;
@@ -160,7 +155,7 @@ export interface wrapperProps {
     body: string;
   };
   formUrl: string;
-  cardFieldsProps: cardFieldsObject;
+  cardFieldsProps: CardFieldsObject;
   cache:
     | 'default'
     | 'no-store'
@@ -168,12 +163,12 @@ export interface wrapperProps {
     | 'force-cache'
     | 'only-if-cached'
     | 'no-cache';
-  styles?: styleProps;
-  filterConfig: Array<filterConfigProps>;
-  addtionalFilterConfig?: Array<filterConfigProps> | undefined;
+  styles?: StyleProps;
+  filterConfig: Array<FilterConfigProps>;
+  addtionalFilterConfig?: Array<FilterConfigProps> | undefined;
 }
 
-export interface apiContextProps {
+export interface ApiContextProps {
   formUrl: string;
   searchApi: {
     url: string;
@@ -181,7 +176,7 @@ export interface apiContextProps {
     headers?: object;
     body: string;
   };
-  cardFieldsProps: cardFieldsObject;
+  cardFieldsProps: CardFieldsObject;
   hostname: string;
   cache:
     | 'default'
@@ -190,9 +185,9 @@ export interface apiContextProps {
     | 'force-cache'
     | 'only-if-cached'
     | 'no-cache';
-  styles?: styleProps;
-  filterConfig: Array<filterConfigProps>;
-  addtionalFilterConfig?: Array<filterConfigProps> | undefined;
+  styles?: StyleProps;
+  filterConfig: Array<FilterConfigProps>;
+  addtionalFilterConfig?: Array<FilterConfigProps> | undefined;
   termsApi: {
     method: string;
     headers?: object;
@@ -201,51 +196,12 @@ export interface apiContextProps {
   frameworks: Array<string>;
 }
 
-export interface singleSelectProps {
-  styles?: {
-    container?: {};
-    optionNameStyle?: {};
-    optionStyle?: {};
-    optionDivStyle?: {};
-    select?: {};
-    optionsItem?: {};
-  };
-  options: Array<string>;
-  optionName: string;
-  framework: string;
-  setFramework: Function;
-  reset?: boolean;
-  filtersArray: Array<filtersArraySelectedOptionObject>;
-  setFiltersArray: (...args: any[]) => any;
-}
-
-export interface filtersArraySelectedOptionObject {
+export interface FiltersArraySelectedOptionObject {
   name: string;
   value: string[];
 }
 
-export interface selectProps {
-  styles?: {
-    container?: {};
-    optionNameStyle?: {};
-    optionStyle?: {};
-    optionDivStyle?: {};
-    select?: {};
-    optionsItem?: {};
-  };
-  filtersArray: Array<filtersArraySelectedOptionObject>;
-  setFiltersArray: (...args: any[]) => any;
-  options: Array<string>;
-  optionName: string;
-  filters?: Array<string>;
-  reset?: boolean;
-}
-
-export interface filterProps {
-  stylesFilterDiv?: {};
-}
-
-export interface cardProps {
+export interface CardProps {
   name: string;
   image?: string;
   subject: string;
