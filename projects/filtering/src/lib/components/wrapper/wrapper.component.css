@@ -1,0 +1,42 @@
+.sidebar {
+  background: #e9e8d9;
+  padding: 10px 20px;
+  width: max-content;
+  border-radius: 10px;
+  width: 15rem;
+  height: max-content;
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+}
+.mainDiv {
+  display: flex;
+  column-gap: 20px;
+}
+
+.sidebar{
+  display: flex;
+  flex-direction: column;
+}
+
+.listDiv {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+@media (max-width: 500px) {
+  .mainDiv {
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+    justify-content: center;
+    align-items: center;
+  }
+  .listDiv {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+  }
+}

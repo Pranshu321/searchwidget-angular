@@ -1,0 +1,62 @@
+<ng-container>
+  <div [style]="styles.container">
+    <div>
+      <h4
+        [style]="styles.optionNameStyle"
+        style="
+          color: rgb(0, 0, 0);
+          margin-bottom: 5px;
+          font-weight: 600;
+          font-size: 19px;
+        "
+      >
+        {{ this.name.toUpperCase() }}
+      </h4>
+      <div
+        [style]="styles.select"
+        *ngIf="isSelected(this.name)"
+        class="select-box"
+        (click)="optionsShow(this.name)"
+      >
+        Select
+      </div>
+      <div
+        *ngIf="!isSelected(this.name)"
+        (click)="optionsShow(this.name)"
+        class="select-box"
+      >
+        <div *ngFor="let term of this.allFiltersArray">
+          <div
+            [style]="styles.select"
+            style="display: flex; column-gap: 4px; flex-wrap: nowrap"
+            *ngIf="term.name.toLowerCase() === this.name.toLowerCase()"
+          >
+            <div *ngFor="let option of term.value">
+              {{ option }}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="getOptionStatus(this.name)">
+        <div [style]="styles.optionDivStyle" class="option-div">
+          <ng-container *ngFor="let term of optionValue">
+            <div
+              [style]="styles.optionStyle"
+              (click)="addFilter(this.name, term)"
+              class="option-item-div"
+            >
+              <div
+                [style]="styles.optionsItem"
+                class="option-item"
+                style="cursor: pointer"
+              >
+                {{ term }}
+              </div>
+              <span *ngIf="CheckIfOptionPresent(this.name, term)">✅</span>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>
